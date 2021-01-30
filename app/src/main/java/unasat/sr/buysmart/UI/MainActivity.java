@@ -1,4 +1,4 @@
-package unasat.sr.buysmart;
+package unasat.sr.buysmart.UI;
 
 import android.os.Bundle;
 
@@ -12,6 +12,8 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+
+import unasat.sr.buysmart.R;
 
 public class MainActivity extends AppCompatActivity {
 
