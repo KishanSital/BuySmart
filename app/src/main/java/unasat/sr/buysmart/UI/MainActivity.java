@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import unasat.sr.buysmart.DatabaseManager.Dao.UserDao;
+import unasat.sr.buysmart.DatabaseManager.Tables.*;
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        DAO dao = new DAO(this);
+        UserDao userTypeTable = new UserDao(this);
+        userTypeTable.addUser(new User("Rewiesh", "Ramcharan", 111, 222, "Suriname", "Normaal", "rew@hotmail.com", "Rew", "Admin"));
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

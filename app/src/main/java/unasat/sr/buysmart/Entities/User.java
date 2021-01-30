@@ -13,6 +13,20 @@ public class User {
     private String username;
     private String password;
 
+    public User(String firstname, String lastname, Integer phoneNumber1, Integer phoneNumber2, String nationality, String userType, String email, String username, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber2 = phoneNumber2;
+        this.nationality = nationality;
+        this.userType = userType;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
+
+
     public User(Long id, String firstname, String lastname, Integer phoneNumber1, Integer phoneNumber2, String nationality, String userType, String email, String username, String password) {
         this.id = id;
         this.firstname = firstname;
