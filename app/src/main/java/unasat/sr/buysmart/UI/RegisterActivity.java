@@ -14,6 +14,8 @@ import unasat.sr.buysmart.DatabaseManager.Dao.UserTypeDao;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Entities.UserType;
 import unasat.sr.buysmart.R;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -44,6 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registerUser (View view) {
+
+        Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPattern.matcher(emailEditText.getText().toString());
 
         if (firstNameEditText.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please provide your first name.",Toast.LENGTH_SHORT).show();
@@ -80,6 +85,9 @@ public class RegisterActivity extends AppCompatActivity {
         else if ( passwordEditText.getText().toString().isEmpty() != rePasswordEditText.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(),"Passwords need to be the same.",Toast.LENGTH_SHORT).show();
             return;
+        }
+        else if (!matcher.find()) {
+            Toast.makeText(getApplicationContext(),"Invalid email address",Toast.LENGTH_SHORT).show();
         }
 
         UserDao userDao = new UserDao(this);
