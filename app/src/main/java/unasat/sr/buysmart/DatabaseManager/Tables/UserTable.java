@@ -11,7 +11,7 @@ public class UserTable {
     public final static String columnNationality = "nationality";
     public final static String columnUserTypeId = "user_type_id";
     public final static String columnEmail = "email";
-    public final static String columnUsername = "uesrname";
+    public final static String columnUsername = "username";
     public final static String columnPassword = "password";
     public final static String create_sql_userTable = "CREATE TABLE " + TableName + " (\n" +
             "    " + columnId + " INTEGER NOT NULL CONSTRAINT employees_pk PRIMARY KEY AUTOINCREMENT,\n" +
