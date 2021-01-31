@@ -32,6 +32,7 @@ public class UserDao {
         contentValues.put(UserTable.columnUsername, user.getUsername());
         contentValues.put(UserTable.columnPassword, user.getPassword());
         SQLiteDatabase db = dao.getWritableDatabase();
+        db.close();
         return db.insert(UserTable.TableName, null, contentValues) != -1;
     }
 
@@ -54,7 +55,7 @@ public class UserDao {
                             ,cursor.getInt(3)
                             ,cursor.getInt(4)
                             ,cursor.getString(5)
-                            ,userTypeDao.getUserType(cursor.getLong(5), null).getName()
+                            ,userTypeDao.getUserType(cursor.getLong(6), null).getName()
                             ,cursor.getString(7)
                             ,cursor.getString(8)
                             ,cursor.getString(9)

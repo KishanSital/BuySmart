@@ -28,6 +28,7 @@ public class UserTypeDao {
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserTypeTable.columnName, userType.getName());
         SQLiteDatabase db = dao.getWritableDatabase();
+        db.close();
         return db.insert(UserTypeTable.TableName, null, contentValues) != -1;
     }
 
@@ -55,12 +56,16 @@ public class UserTypeDao {
     public void insertRefUserTypes() {
         UserType adminUserType = new UserType("Admin");
         UserType customerUserType = new UserType("Customer");
-        List<UserType> listRefUserTypes= new ArrayList<UserType>();
+        List<UserType> listRefUserTypes= new ArrayList<UserType>(1);
         listRefUserTypes.add(adminUserType);
         listRefUserTypes.add(customerUserType);
         for (int i = 0; i < listRefUserTypes.size(); i++) {
             if(getUserType(null, listRefUserTypes.get(i).getName()) != null) {
                 addUserType(listRefUserTypes.get(i));
+                System.out.println("Succesfully added ref usertype " + listRefUserTypes.get(i).getName() );
+            }
+            else {
+                System.out.println("UserType " + listRefUserTypes.get(i).getName() + " already exist.");
             }
         }
     }
