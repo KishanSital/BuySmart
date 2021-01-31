@@ -12,4 +12,5 @@
     <string name="phoneNumber1">Phone Number 1</string>
     <string name="phoneNumber2">Phone Number 2</string>
     <string name="nationality">Nationality</string>
+    <string name="selectCountry">Select a country</string>
 </resources>

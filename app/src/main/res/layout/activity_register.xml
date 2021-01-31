@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.062" />
 
-    <EditText
+   <!-- <EditText
         android:id="@+id/nationalityEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,6 +29,22 @@
         android:ems="10"
         android:hint="@string/nationality"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.412"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.427" />-->
+
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/selectCountry"
+        android:ems="10"
+        android:completionThreshold="1"
+        android:completionHint="@string/selectCountry"
+        android:popupBackground = "@color/cardview_light_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.412"
@@ -154,5 +170,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.879" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
