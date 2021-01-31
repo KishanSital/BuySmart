@@ -14,6 +14,9 @@ public class UserType {
         this.name = name;
     }
 
+    public UserType(UserType userType) {
+    }
+
     public Long getId() {
         return id;
     }

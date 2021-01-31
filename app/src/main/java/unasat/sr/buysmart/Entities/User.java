@@ -9,10 +9,12 @@ public class User {
     private Integer phoneNumber2;
     private String nationality;
     private String userType;
+    private Long userTypeId;
     private String email;
     private String username;
     private String password;
 
+    //Constructor with string usertype
     public User(String firstname, String lastname, Integer phoneNumber1, Integer phoneNumber2, String nationality, String userType, String email, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -25,16 +27,14 @@ public class User {
         this.password = password;
     }
 
-
-
-    public User(Long id, String firstname, String lastname, Integer phoneNumber1, Integer phoneNumber2, String nationality, String userType, String email, String username, String password) {
-        this.id = id;
+    //Constructor with int usertype used to inesrt
+    public User(String firstname, String lastname, Integer phoneNumber1, Integer phoneNumber2, String nationality, Long userTypeId, String email, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.phoneNumber1 = phoneNumber1;
         this.phoneNumber2 = phoneNumber2;
         this.nationality = nationality;
-        this.userType = userType;
+        this.userTypeId = userTypeId;
         this.email = email;
         this.username = username;
         this.password = password;
