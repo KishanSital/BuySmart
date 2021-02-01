@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BuySmart">
-        <activity android:name=".UI.RegisterActivity"></activity>
+        <activity android:name=".UI.DashboardActivity"></activity>
+        <activity android:name=".UI.RegisterActivity" />
         <activity android:name=".UI.LoginActivity" />
         <activity
             android:name=".UI.MainActivity"

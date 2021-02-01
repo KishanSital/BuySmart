@@ -96,11 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
                     startActivity(loginIntent);
                 }
             }
-
-
         }
-
-
     }
 
     private void getCountryData(String countries) {
