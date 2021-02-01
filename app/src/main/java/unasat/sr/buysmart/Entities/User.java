@@ -120,6 +120,14 @@ public class User {
         this.password = password;
     }
 
+    public Long getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(Long userTypeId) {
+        this.userTypeId = userTypeId;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -130,6 +138,7 @@ public class User {
                 ", phoneNumber2=" + phoneNumber2 +
                 ", nationality='" + nationality + '\'' +
                 ", userType='" + userType + '\'' +
+                ", userTypeId=" + userTypeId +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
