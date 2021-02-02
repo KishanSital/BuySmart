@@ -15,15 +15,19 @@
         <activity android:name=".UI.RegisterActivity" />
         <activity android:name=".UI.LoginActivity" />
         <activity
-            android:name=".UI.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.BuySmart.NoActionBar">
+            android:name=".UI.SplashScreenActivity"
+            android:theme="@style/SplashScreen"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".UI.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.BuySmart.NoActionBar">
+            </activity>
     </application>
 
 </manifest>
