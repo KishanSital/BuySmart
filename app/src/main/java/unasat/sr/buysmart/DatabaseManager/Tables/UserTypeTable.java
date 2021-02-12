@@ -1,3 +1,4 @@
+/*
 package unasat.sr.buysmart.DatabaseManager.Tables;
 
 public class UserTypeTable {
@@ -9,3 +10,4 @@ public class UserTypeTable {
                                                             "    " + columnName + " VARCHAR(100) NOT NULL\n" +
                                                             ");";
 }
+*/

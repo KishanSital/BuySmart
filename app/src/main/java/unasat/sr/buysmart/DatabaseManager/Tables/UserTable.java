@@ -1,3 +1,4 @@
+/*
 package unasat.sr.buysmart.DatabaseManager.Tables;
 
 public class UserTable {
@@ -27,4 +28,4 @@ public class UserTable {
             ");";
 
 
-}
+}*/

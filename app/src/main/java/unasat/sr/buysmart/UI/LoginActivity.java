@@ -1,3 +1,4 @@
+/*
 package unasat.sr.buysmart.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import unasat.sr.buysmart.Activities.DashboardActivity;
 import unasat.sr.buysmart.DatabaseManager.Dao.UserDao;
 import unasat.sr.buysmart.DatabaseManager.Dao.UserTypeDao;
 import unasat.sr.buysmart.Entities.User;
@@ -78,4 +80,4 @@ public class LoginActivity extends AppCompatActivity {
         Intent registerIntent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(registerIntent);
     }
-}
+}*/

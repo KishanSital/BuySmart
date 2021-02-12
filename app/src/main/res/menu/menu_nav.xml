@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Menu">
+        <menu >
+            <group
+                android:checkableBehavior="single"
+                >
+
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_home"
+                    android:title="@string/nav_home" />
+
+                <item
+                    android:id="@+id/nav_deposit"
+                    android:icon="@drawable/ic__deposit"
+                    android:title="@string/nav_deposit" />
+                <!--android:checked="true"-->
+
+                <item
+                    android:id="@+id/nav_withdraw"
+                    android:icon="@drawable/ic_withdraw"
+                    android:title="@string/nav_withdraw" />
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_stop"
+                    android:title="@string/nav_logout"
+                    />
+
+            </group>
+
+        </menu >
+    </item>
+</menu>

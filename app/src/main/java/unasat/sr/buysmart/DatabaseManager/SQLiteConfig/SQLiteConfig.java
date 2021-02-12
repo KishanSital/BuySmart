@@ -1,3 +1,4 @@
+/*
 package unasat.sr.buysmart.DatabaseManager.SQLiteConfig;
 
 import android.content.Context;
@@ -55,3 +56,4 @@ public class SQLiteConfig extends SQLiteOpenHelper {
 
     }
 }
+*/

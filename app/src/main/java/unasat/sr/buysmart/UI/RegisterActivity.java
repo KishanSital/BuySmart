@@ -1,3 +1,4 @@
+/*
 package unasat.sr.buysmart.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -212,4 +213,4 @@ public class RegisterActivity extends AppCompatActivity {
         getCountryData(COUNTRIES);
         emailValidation();
     }
-}
+}*/

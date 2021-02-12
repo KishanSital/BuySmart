@@ -1,3 +1,4 @@
+/*
 package unasat.sr.buysmart.DatabaseManager.Dao;
 
 import android.content.ContentValues;
@@ -71,3 +72,4 @@ public class UserDao {
         return user;
     }
 }
+*/
