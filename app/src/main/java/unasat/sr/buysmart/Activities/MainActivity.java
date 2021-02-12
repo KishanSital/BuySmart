@@ -69,8 +69,46 @@ public class MainActivity extends AppCompatActivity {
             if (!inputValidation.isInputEditTextFilledLogin( etUsername, etPassword,  getString(R.string.error_login_message))) {
                 return;
             }
+            if ( globalDAO.checkIfUserAdmin(etUsername.getText()
+                    .toString().trim(), etPassword.getText().toString().trim())) {
 
-            if(globalDAO.checkUser(etUsername.getText().toString().trim()
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        MainActivity.this
+                );
+                builder.setIcon(R.drawable.ic_check);
+                builder.setTitle(getString(R.string.login_success));
+                builder.setMessage( getString(R.string.welcome_message_owner));
+                builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                        String input = getString(R.string.welcome)+ " " + etUsername.getText().toString() + getString(R.string.logged_in) ;
+                        Intent serviceIntent = new Intent(getApplicationContext(), LoggedInService.class);
+                        serviceIntent.putExtra("inputExtra", input);
+                        ContextCompat.startForegroundService(getApplicationContext(), serviceIntent);
+                        // startService(serviceIntent);
+
+
+                        //issue hiermee, probeer op de dashboard fragment gebruiker gegevens te tonen,maar lukt niet
+                        // bij de menu komt hij wel tevoorschijn, maar bij de fragment doet hij gek
+                  /*  Bundle bundle1 = new Bundle();
+                    bundle1.putString("username",etUsername.getText().toString().trim());
+                    DashboardFragment dashboardFragment = new DashboardFragment();
+                    dashboardFragment.setArguments(bundle1);*/
+
+
+//                        Intent dashboardIntent = new Intent(MainActivity.this, DashboardActivity.class);
+//                        dashboardIntent.putExtra("username", etUsername.getText().toString().trim());
+//                        startActivity(dashboardIntent);
+//
+//                        emptyInputEditText();
+//                        finish();
+                    }
+                });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            } else if(globalDAO.checkUser(etUsername.getText().toString().trim()
                     , etPassword.getText().toString().trim())){
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         MainActivity.this
@@ -107,7 +145,9 @@ public class MainActivity extends AppCompatActivity {
                 });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-            } else {
+            }
+            else
+             {
                 Bundle bundle = new Bundle();
                 bundle.putString("error",getString(R.string.error_message));
                 MyDialogFragment myDialogFragment = new MyDialogFragment();

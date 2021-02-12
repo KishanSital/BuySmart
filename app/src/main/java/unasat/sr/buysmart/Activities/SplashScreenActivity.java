@@ -35,7 +35,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             user.setPhoneNumber2(123456);
             user.setNationality("Suriname");
             user.setPassword("owner");
-            user.setUserTypeId(2); // 2 = customer, will be filled in automatically when registering. 1 = Admin (one admin will automatically be inserted on startup)
+            user.setUserTypeId(1); // 2 = customer, will be filled in automatically when registering. 1 = Admin (one admin will automatically be inserted on startup)
             globalDAO.addUser(user);
             System.out.println(user.toString());
 

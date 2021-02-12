@@ -36,7 +36,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String USER_TYPES_NAME = "name";
 
 
-
+    public static final int ADMIN = 1;
 
 
     private static final String SQL_USER_TABLE_QUERY = String.format("create table %s " +
@@ -363,9 +363,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         String[] selectionArgs = {userType};
         // query user table with condition
         /**
-         * Here query function is used to fetch records from user table this function works like we use sql query.
-         * SQL query equivalent to this query function is
-         * SELECT ID FROM USER_TABLE WHERE USER_USERNAME = username;
+
          */
         Cursor cursor = db.query(USER_TYPES_TABLE, //Table to query
                 columns,                    //columns to return
@@ -391,6 +389,38 @@ public class GlobalDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         // selection criteria
         String selection = USER_USERNAME + " = ?" + " AND " + USER_PASSWORD + " = ?";
+        // selection arguments
+        String[] selectionArgs = {username, password};
+        // query user table with conditions
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT ID FROM USER_TABLE WHERE USER_USERNAME = username AND USER_PASSWORD = password;
+         */
+        Cursor cursor = db.query(USER_TABLE, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                       //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+        if (cursorCount > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkIfUserAdmin(String username, String password) {
+        // array of columns to fetch
+        String[] columns = {
+                USER_ID
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        String selection = USER_USERNAME + " = ?" + " AND " + USER_PASSWORD + " = ?" + " AND " + USER_TYPE_ID + " = "+ ADMIN;
         // selection arguments
         String[] selectionArgs = {username, password};
         // query user table with conditions

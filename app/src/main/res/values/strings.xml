@@ -61,4 +61,5 @@
     <string name="error_message_last_name">Enter a lastname</string>
     <string name="error_message_email">Enter a valid email</string>
     <string name="error_message_phone1">Provide atleast one phone number</string>
+    <string name="welcome_message_owner">Owner welcome to your shop, your dashboard still needs to be made</string>
 </resources>
