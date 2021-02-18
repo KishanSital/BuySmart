@@ -23,11 +23,11 @@ public class InputValidation {
      * method to check InputEditText filled .
      *
      * @param username, password
-
+     *
      * @param message
      * @return
      */
-    public boolean isInputEditTextFilledLogin(EditText username ,EditText password, String message) {
+    public boolean isInputEditTextFilledLogin(EditText username, EditText password, String message) {
         String value1 = username.getText().toString().trim();
         String value2 = password.getText().toString().trim();
 
@@ -44,7 +44,7 @@ public class InputValidation {
         }
     }
 
-    public boolean isInputEditTextEmail(EditText email ,  String message) {
+    public boolean isInputEditTextEmail(EditText email,  String message) {
         String value = email.getText().toString().trim();
         if (value.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(value).matches()) {
             email.setError(message);
@@ -55,7 +55,7 @@ public class InputValidation {
         }
     }
 
-    public boolean isInputEditTextFilled(EditText  text, String message) {
+    public boolean isInputEditTextFilled(EditText text, String message) {
         String value = text.getText().toString().trim();
 
         if (value.isEmpty()) {
@@ -80,7 +80,6 @@ public class InputValidation {
         }
 
     }
-
 
     /**
      * method to Hide keyboard

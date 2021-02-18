@@ -14,9 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         createNotificationChannel();
-
     }
-
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

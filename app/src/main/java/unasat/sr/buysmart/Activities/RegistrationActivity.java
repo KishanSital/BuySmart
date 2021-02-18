@@ -214,8 +214,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
-
-
     private void emptyInputEditText() {
         username.setText(null);
         email.setText(null);
@@ -228,24 +226,22 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         phoneNumber2.setText(null);
     }
 
-
     @Override
     public void onFocusChange(View view, boolean b) {
     }
+
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long row) {
-
         Country  country = (Country) nationality.getAdapter().getItem(position);
-
     }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long row) {
         Country  country = (Country) nationality.getAdapter().getItem(position);
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
-
-
 }

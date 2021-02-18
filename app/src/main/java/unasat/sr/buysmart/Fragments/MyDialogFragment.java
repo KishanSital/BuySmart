@@ -19,8 +19,8 @@ public class MyDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         super.onCreateView(inflater, container, savedInstanceState);
-         View v = inflater.inflate(R.layout.dialogfragment,container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.dialogfragment,container, false);
         errorMessage = v.findViewById(R.id.textView);
         Bundle bundle = getArguments();
         String error = bundle.getString("error");

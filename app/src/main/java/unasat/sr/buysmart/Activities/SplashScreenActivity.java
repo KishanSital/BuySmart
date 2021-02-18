@@ -38,7 +38,6 @@ public class SplashScreenActivity extends AppCompatActivity {
             user.setUserTypeId(1); // 2 = customer, will be filled in automatically when registering. 1 = Admin (one admin will automatically be inserted on startup)
             globalDAO.addUser(user);
             System.out.println(user.toString());
-
         }
 
         if (!globalDAO.checkUserType("Admin")){
@@ -59,12 +58,11 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         finish();
     }
+
     private void initObjects(){
         globalDAO = new GlobalDAO(this);
         inputValidation = new InputValidation(this);
         user = new User();
         userType = new UserType();
-
     }
-
 }

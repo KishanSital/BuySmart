@@ -95,8 +95,6 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     }*/
 
-
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_USER_TABLE_QUERY);
@@ -106,13 +104,10 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(SQL_USER_TABLE_QUERY);
-        db.execSQL(SQL_USER_TYPE_QUERY);
-
     }
 
     /**
-     * This method is to create user record
+     * This method is used to create user record
      * parameter is user
      */
     public void addUser(User user) {
@@ -143,7 +138,6 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
     }
 
-
     public long insertOneRecord(String tableName, ContentValues contentValues) {
         SQLiteDatabase db = getWritableDatabase();
         long rowId = db.insert(tableName, null, contentValues);
@@ -151,8 +145,6 @@ public class GlobalDAO extends SQLiteOpenHelper {
         //return the row ID of the newly inserted row, or -1 if an error occurred
         return rowId;
     }
-
-
 
     public boolean insertMultipleRecord(String tableName, List<ContentValues> contentValuesList) {
         SQLiteDatabase db = getWritableDatabase();
@@ -167,6 +159,11 @@ public class GlobalDAO extends SQLiteOpenHelper {
         //return the true id all inserts where succesfull
         return isSuccess;
     }
+
+    /**
+     * This method is used to user by username
+     * parameter is user
+     */
 
     public User findByUsername(String username) {
         User user = new User();
@@ -314,7 +311,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
     }
 
     /**
-     * This method to check user exist or not
+     * This method is used to check user if exist or not
      *
      * parameter username
      * return true/false
