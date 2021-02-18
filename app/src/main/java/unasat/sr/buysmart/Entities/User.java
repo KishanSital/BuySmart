@@ -13,6 +13,7 @@ public class User {
     private String nationality;
     private int userTypeId;
 
+
     public User () {
 
     }

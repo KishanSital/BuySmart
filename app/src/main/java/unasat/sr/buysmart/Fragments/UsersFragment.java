@@ -27,6 +27,7 @@ public class UsersFragment extends Fragment {
     private RecyclerView recyclerView;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

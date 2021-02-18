@@ -8,6 +8,7 @@ public class UserType {
 
     public  UserType(){
 
+
     }
 
     public UserType(int userTypeId, String name) {

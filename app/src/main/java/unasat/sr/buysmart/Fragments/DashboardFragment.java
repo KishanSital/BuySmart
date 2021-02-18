@@ -15,6 +15,7 @@ import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
+
 public class DashboardFragment extends Fragment {
 
     private TextView username;

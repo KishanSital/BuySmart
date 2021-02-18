@@ -17,6 +17,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/textView3"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/username" />
+
         <EditText
             android:id="@+id/edittext_name"
             android:layout_width="match_parent"
@@ -26,6 +36,16 @@
             android:textColor="#000"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:textColor="#000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/password" />
 
         <EditText
             android:id="@+id/edittext_email"

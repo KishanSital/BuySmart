@@ -3,6 +3,7 @@ package unasat.sr.buysmart.Activities;
 public class AppState {
     private static AppState singleInstance;
 
+
     private boolean isLoggingOut;
 
     private AppState() {

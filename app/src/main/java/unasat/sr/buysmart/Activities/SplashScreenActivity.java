@@ -19,6 +19,7 @@ import unasat.sr.buysmart.Validation.InputValidation;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+
   private   GlobalDAO globalDAO;
   private   InputValidation inputValidation;
   private   User user;

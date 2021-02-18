@@ -19,6 +19,7 @@ import unasat.sr.buysmart.R;
 
 public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.ViewHolder>{
 
+
   private List<User> users;
   private Context context;
    private  GlobalDAO databaseHelperClass;

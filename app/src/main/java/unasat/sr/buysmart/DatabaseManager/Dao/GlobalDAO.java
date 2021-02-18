@@ -16,6 +16,7 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
+
     private static final String DATABASE_NAME = "buysmart.db";
     private static final int DATABASE_VERSION = 1;
 

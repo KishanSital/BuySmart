@@ -36,6 +36,7 @@ import unasat.sr.buysmart.Validation.InputValidation;
 
 public class RegistrationActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener, View.OnFocusChangeListener {
 
+
     private static final String COUNTRIES = "https://restcountries.eu/rest/v2/all";
     private EditText email;
     private EditText firstname;
