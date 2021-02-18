@@ -1,6 +1,7 @@
 /*
 package unasat.sr.buysmart.DatabaseManager.SQLiteConfig;
 
+
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;

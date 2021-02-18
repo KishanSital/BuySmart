@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">BuySmart</string>
     <string name="usernameEditText">Username</string>
     <string name="emailEditText">E-mailadres</string>
@@ -61,5 +62,12 @@
     <string name="error_message_last_name">Enter a lastname</string>
     <string name="error_message_email">Enter a valid email</string>
     <string name="error_message_phone1">Provide atleast one phone number</string>
-    <string name="welcome_message_owner">Owner welcome to your shop, your dashboard still needs to be made</string>
+    <string name="welcome_message_owner">Owner welcome to your shop<!--, your dashboard still needs to be made--></string>
+    <string name="please_wait">Please wait</string>
+    <string name="a_moment">We\'re setting up our shop...</string>
+    <string name="nav_users">Manage users</string>
+    <string name="nav_report">Report</string>
+    <string name="error_message_users">There are no users \n \n in the database</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>

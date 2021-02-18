@@ -20,11 +20,12 @@ import com.google.android.material.navigation.NavigationView;
 
 import unasat.sr.buysmart.Fragments.DashboardFragment;
 import unasat.sr.buysmart.Fragments.DepositFragment;
+import unasat.sr.buysmart.Fragments.UsersFragment;
 import unasat.sr.buysmart.Fragments.WithdrawFragment;
 import unasat.sr.buysmart.R;
 import unasat.sr.buysmart.Services.LoggedInService;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class AdminDashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout drawerLayout;
@@ -39,7 +40,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void init() {
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_admin_dashboard);
         drawerLayout= findViewById(R.id.drawer_layout);
         navigationView= findViewById(R.id.nav_view);
         toolbar= findViewById(R.id.toolbar);
@@ -58,7 +59,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
-        // loadFragment(new DashboardFragment());
+         loadFragment(new UsersFragment());
 
     }
 
@@ -67,12 +68,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_deposit) {
-            loadFragment(new DepositFragment());
+        if (id == R.id.nav_users) {
+            loadFragment(new UsersFragment());
             return true;
-        } else if (id == R.id.nav_withdraw) {
-            loadFragment(new WithdrawFragment());
-        } else if (id == R.id.nav_home){
+        } else if (id == R.id.nav_report) {
+          //  loadFragment(new ReportFragment());
+        } /*else if (id == R.id.nav_home){
 
             Bundle bundle1 = new Bundle();
             bundle1.putString("username",username.getText().toString().trim());
@@ -80,7 +81,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             dashboardFragment.setArguments(bundle1);
 
             loadFragment(new DashboardFragment());
-        }
+        }*/
 
         else if  (id == R.id.nav_logout) {
             Intent serviceIntent = new Intent(this, LoggedInService.class);

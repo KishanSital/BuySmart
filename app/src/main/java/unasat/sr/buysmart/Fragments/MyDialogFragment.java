@@ -15,6 +15,7 @@ import unasat.sr.buysmart.R;
 
 public class MyDialogFragment extends DialogFragment {
 
+
     private TextView errorMessage;
     @Nullable
     @Override

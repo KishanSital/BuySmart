@@ -16,6 +16,7 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
+
     private static final String DATABASE_NAME = "buysmart.db";
     private static final int DATABASE_VERSION = 1;
 
@@ -95,6 +96,37 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     }*/
 
+    public List<User> getUsersList(){
+        String sql = "select * from " + USER_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<User> users = new ArrayList<>();
+        Cursor cursor = db.rawQuery(sql,null);
+        if (cursor.moveToFirst()){
+            do {
+                String username = cursor.getString(2);
+                String password = cursor.getString(3);
+                users.add(new User(username,password));
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return users;
+    }
+
+    public void deleteUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(USER_TABLE, USER_USERNAME + " = ? ", new String[]
+                {String.valueOf(username)});
+    }
+
+    public void updateUsers(User userClass){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USER_USERNAME,userClass.getUsername());
+        contentValues.put(USER_PASSWORD,userClass.getPassword());
+        db.update(USER_TABLE,contentValues,USER_USERNAME + " = ?" ,
+                new String[]{userClass.getUsername()});
+    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_USER_TABLE_QUERY);
@@ -104,10 +136,13 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL(SQL_USER_TABLE_QUERY);
+        db.execSQL(SQL_USER_TYPE_QUERY);
+
     }
 
     /**
-     * This method is used to create user record
+     * This method is to create user record
      * parameter is user
      */
     public void addUser(User user) {
@@ -138,6 +173,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
     }
 
+
     public long insertOneRecord(String tableName, ContentValues contentValues) {
         SQLiteDatabase db = getWritableDatabase();
         long rowId = db.insert(tableName, null, contentValues);
@@ -145,6 +181,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
         //return the row ID of the newly inserted row, or -1 if an error occurred
         return rowId;
     }
+
+
 
     public boolean insertMultipleRecord(String tableName, List<ContentValues> contentValuesList) {
         SQLiteDatabase db = getWritableDatabase();
@@ -159,11 +197,6 @@ public class GlobalDAO extends SQLiteOpenHelper {
         //return the true id all inserts where succesfull
         return isSuccess;
     }
-
-    /**
-     * This method is used to user by username
-     * parameter is user
-     */
 
     public User findByUsername(String username) {
         User user = new User();
@@ -311,7 +344,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
     }
 
     /**
-     * This method is used to check user if exist or not
+     * This method to check user exist or not
      *
      * parameter username
      * return true/false

@@ -13,8 +13,14 @@ public class User {
     private String nationality;
     private int userTypeId;
 
+
     public User () {
 
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
     public User(int userId, String email, String username, String password, String firstname, String lastname, int phoneNumber1,
                 int phoneNumber2, String nationality, int userTypeId) {

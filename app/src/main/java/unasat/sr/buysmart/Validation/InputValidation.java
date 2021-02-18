@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+
 public class InputValidation {
 
     private Context context;
