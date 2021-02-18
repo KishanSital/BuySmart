@@ -2,12 +2,14 @@ package unasat.sr.buysmart.DatabaseManager.Dao;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 import unasat.sr.buysmart.Entities.User;
+import unasat.sr.buysmart.Fragments.MyDialogFragment;
 import unasat.sr.buysmart.R;
 
 public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.ViewHolder>{
@@ -43,20 +46,29 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         final User usersclass = users.get(position);
 
-       // holder.textViewID.setText(Integer.toString(employeeModelClass.getId()));
-        holder.editText_Name.setText(usersclass.getUsername());
-        holder.editText_Email.setText(usersclass.getPassword());
+        holder.editText_userName.setText(usersclass.getUsername());
+        holder.editText_Password.setText(usersclass.getPassword());
 
         holder.button_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringName = holder.editText_Name.getText().toString();
-                String stringEmail = holder.editText_Email.getText().toString();
+                String stringName = holder.editText_userName.getText().toString();
+                String stringEmail = holder.editText_Password.getText().toString();
 
-                databaseHelperClass.updateUsers(new User(stringName,stringEmail));
-                notifyDataSetChanged();
-                ((FragmentActivity) context).finish();
-                context.startActivity(((FragmentActivity) context).getIntent());
+                if (!databaseHelperClass.checkUser(stringName) ){
+
+                    databaseHelperClass.updateUsers(new User(stringName,stringEmail));
+                    notifyDataSetChanged();
+                    ((FragmentActivity) context).finish();
+                    context.startActivity(((FragmentActivity) context).getIntent());
+
+                } else {
+                    CharSequence text = "Username already taken";
+                    Toast toast = Toast.makeText(v.getContext(), text, Toast.LENGTH_LONG);
+                    toast.show();
+                }
+
+
             }
         });
 
@@ -78,8 +90,8 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView textViewID;
-        EditText editText_Name;
-        EditText editText_Email;
+        EditText editText_userName;
+        EditText editText_Password;
         Button button_Edit;
         Button button_delete;
 
@@ -87,8 +99,8 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
             super(itemView);
 
           //  textViewID = itemView.findViewById(R.id.text_id);
-            editText_Name = itemView.findViewById(R.id.edittext_name);
-            editText_Email = itemView.findViewById(R.id.edittext_email);
+            editText_userName = itemView.findViewById(R.id.edittext_name);
+            editText_Password = itemView.findViewById(R.id.edittext_email);
             button_delete = itemView.findViewById(R.id.button_delete);
             button_Edit = itemView.findViewById(R.id.button_edit);
 
