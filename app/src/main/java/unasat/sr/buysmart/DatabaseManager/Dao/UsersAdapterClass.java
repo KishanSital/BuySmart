@@ -52,21 +52,21 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
         holder.button_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringName = holder.editText_userName.getText().toString();
-                String stringEmail = holder.editText_Password.getText().toString();
+                String stringUserName = holder.editText_userName.getText().toString();
+                String stringUserPassword = holder.editText_Password.getText().toString();
 
-                if (!databaseHelperClass.checkUser(stringName) ){
-
-                    databaseHelperClass.updateUsers(new User(stringName,stringEmail));
-                    notifyDataSetChanged();
-                    ((FragmentActivity) context).finish();
-                    context.startActivity(((FragmentActivity) context).getIntent());
+                if (!databaseHelperClass.checkUser(stringUserName) ){
+                    databaseHelperClass.updateUsers(new User(stringUserName,stringUserPassword));
 
                 } else {
                     CharSequence text = "Username already taken";
                     Toast toast = Toast.makeText(v.getContext(), text, Toast.LENGTH_LONG);
                     toast.show();
+                    databaseHelperClass.updateUsers(new User((usersclass.getUsername()),stringUserPassword));
                 }
+                notifyDataSetChanged();
+                ((FragmentActivity) context).finish();
+                context.startActivity(((FragmentActivity) context).getIntent());
 
 
             }
