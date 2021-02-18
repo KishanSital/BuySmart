@@ -178,8 +178,10 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             user.setEmail(email.getText().toString().trim());
             user.setUsername(username.getText().toString().trim());
             user.setPhoneNumber1(Integer.parseInt(phoneNumber1.getText().toString().trim()));
-            user.setPhoneNumber2(Integer.parseInt( phoneNumber2.getText().toString().trim()));
-            user.setNationality(nationality.getText().toString().trim());
+            if (phoneNumber2.getText().toString() != null ||phoneNumber2.getText().toString() != "") {
+                user.setPhoneNumber2(Integer.parseInt( phoneNumber2.getText().toString().trim()));
+            }
+            user.setNationality(nationality.getText().toString());
             user.setPassword(password.getText().toString());
             user.setUserTypeId(2); // 2 = customer, will be filled in automatically when registering. 1 = Admin (one admin will automatically be inserted on startup)
             globalDAO.addUser(user);

@@ -95,7 +95,36 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     }*/
 
+    public List<User> getUsersList(){
+        String sql = "select * from " + USER_TABLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<User> users = new ArrayList<>();
+        Cursor cursor = db.rawQuery(sql,null);
+        if (cursor.moveToFirst()){
+            do {
+                String username = cursor.getString(2);
+                String password = cursor.getString(3);
+                users.add(new User(username,password));
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return users;
+    }
 
+    public void deleteUser(String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(USER_TABLE, USER_USERNAME + " = ? ", new String[]
+                {String.valueOf(username)});
+    }
+
+    public void updateUsers(User userClass){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(USER_USERNAME,userClass.getUsername());
+        contentValues.put(USER_PASSWORD,userClass.getPassword());
+        db.update(USER_TABLE,contentValues,USER_USERNAME + " = ?" ,
+                new String[]{userClass.getUsername()});
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {

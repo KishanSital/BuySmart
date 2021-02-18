@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Menu">
+        <menu >
+            <group
+                android:checkableBehavior="single"
+                >
+
+         <!--       <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/ic_home"
+                    android:title="@string/nav_home" />-->
+
+                <item
+                    android:id="@+id/nav_users"
+                    android:icon="@drawable/ic__supervised_user"
+                    android:title="@string/nav_users" />
+                <!--android:checked="true"-->
+
+                <item
+                    android:id="@+id/nav_report"
+                    android:icon="@drawable/ic_show_chart"
+                    android:title="@string/nav_report" />
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_stop"
+                    android:title="@string/nav_logout"
+                    />
+            </group>
+
+        </menu >
+    </item>
+</menu>

@@ -29,10 +29,10 @@ public class DashboardFragment extends Fragment {
         username = (TextView) v.findViewById(R.id.username);
         nationality = (TextView) v.findViewById(R.id.nationality);
 
-      /*  Bundle bundle = getArguments();
+        Bundle bundle = getArguments();
 
-        if (bundle!= null){*/
-            String usernameString = /*bundle.getString("username");*/ "owner";
+        if (bundle!= null){
+            String usernameString = bundle.getString("username") ;
             System.out.println(usernameString);
             GlobalDAO financialDAO = new GlobalDAO(getActivity());
             User user = financialDAO.findByUsername(usernameString);
@@ -40,7 +40,7 @@ public class DashboardFragment extends Fragment {
             username.setText( user.getUsername());
             nationality.setText( user.getNationality());
 
-      //  }
+        }
 
         return v;
     }
