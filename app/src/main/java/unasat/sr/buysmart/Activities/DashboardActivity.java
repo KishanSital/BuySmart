@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import unasat.sr.buysmart.Fragments.DashboardFragment;
 import unasat.sr.buysmart.Fragments.DepositFragment;
+import unasat.sr.buysmart.Fragments.ProductsFragment;
 import unasat.sr.buysmart.Fragments.WithdrawFragment;
 import unasat.sr.buysmart.R;
 import unasat.sr.buysmart.Services.LoggedInService;
@@ -73,15 +74,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_withdraw) {
             loadFragment(new WithdrawFragment());
         } else if (id == R.id.nav_home){
-
             Bundle bundle1 = new Bundle();
             bundle1.putString("username",username.getText().toString().trim());
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.setArguments(bundle1);
-
             loadFragment(new DashboardFragment());
         }
-
+        else if (id == R.id.nav_products) {
+            loadFragment(new ProductsFragment());
+            return true;
+        }
         else if  (id == R.id.nav_logout) {
             Intent serviceIntent = new Intent(this, LoggedInService.class);
             stopService(serviceIntent);
@@ -90,8 +92,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
             finish();
-
-
         }
 
         return super.onOptionsItemSelected(item);

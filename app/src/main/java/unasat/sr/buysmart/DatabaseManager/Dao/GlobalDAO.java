@@ -19,7 +19,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "buysmart.db";
     private static final int DATABASE_VERSION = 1;
-
+    // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
     public static final String USER_FIRSTNAME = "firstname";
@@ -31,11 +31,11 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String USER_NATIONALITY = "nationality";
     public static final String USER_PASSWORD = "password";
     public static final String USER_TYPE_ID = "user_type_id";
-
+    // constants user_type table
     public static final String USER_TYPES_TABLE = "user_types";
     public static final String USER_TYPES_ID = "user_types_id";
     public static final String USER_TYPES_NAME = "name";
-
+    // constants user_type table
 
     public static final int ADMIN = 1;
 
@@ -136,8 +136,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL(SQL_USER_TABLE_QUERY);
-        db.execSQL(SQL_USER_TYPE_QUERY);
+//        db.execSQL(SQL_USER_TABLE_QUERY);
+//        db.execSQL(SQL_USER_TYPE_QUERY);
 
     }
 

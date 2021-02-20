@@ -1,5 +1,4 @@
 <resources>
-
     <string name="app_name">BuySmart</string>
     <string name="usernameEditText">Username</string>
     <string name="emailEditText">E-mailadres</string>
@@ -16,6 +15,7 @@
     <string name="selectCountry">Select a country</string>
     <string name="logged_in_start_service">Logged in service channel</string>
     <string name="nav_home">Dashboard</string>
+    <string name="nav_products">Products</string>
     <string name="nav_deposit">Deposit</string>
     <string name="nav_withdraw">Withdraw</string>
     <string name="nav_logout">Logout</string>
