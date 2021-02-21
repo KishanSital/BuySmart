@@ -17,10 +17,6 @@
         <activity android:name=".Activities.RegistrationActivity" />
         <activity android:name=".Activities.DashboardActivity" />
 
-        <!--
-<activity android:name=".UI.RegisterActivity" />
-        <activity android:name=".UI.LoginActivity" />
-        -->
         <activity
             android:name=".Activities.SplashScreenActivity"
             android:theme="@style/SplashScreen">

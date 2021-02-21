@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import unasat.sr.buysmart.Entities.Product;
+import unasat.sr.buysmart.Entities.ProductType;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Entities.UserType;
 
@@ -31,27 +33,41 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String USER_NATIONALITY = "nationality";
     public static final String USER_PASSWORD = "password";
     public static final String USER_TYPE_ID = "user_type_id";
-    // constants user_type table
+    // constants user_types table
     public static final String USER_TYPES_TABLE = "user_types";
     public static final String USER_TYPES_ID = "user_types_id";
     public static final String USER_TYPES_NAME = "name";
-    // constants user_type table
+    // constants product_types table
+    public static final String PRODUCT_TYPES_TABLE = "product_types";
+    public static final String PRODUCT_TYPES_ID = "product_types_id";
+    public static final String PRODUCT_TYPES_NAME = "name";
+    // constants product table
+    public static final String PRODUCT_TABLE = "product";
+    public static final String PRODUCT_ID = "product_id";
+    public static final String PRODUCT_NAME = "name";
+    public static final String PRODUCT_PRICE = "price";
 
     public static final int ADMIN = 1;
 
-
+    // user table create string
     private static final String SQL_USER_TABLE_QUERY = String.format("create table %s " +
                     "(%s INTEGER PRIMARY KEY , %s STRING NOT NULL UNIQUE , %s STRING NOT NULL UNIQUE,  %s STRING NOT NULL, " +
             "%s STRING NOT NULL, %s STRING NOT NULL, %s INTEGER NOT NULL , %s INTEGER, %s STRING NOT NULL , %s INTEGER)",
             USER_TABLE, USER_ID, USER_EMAIL, USER_USERNAME, USER_PASSWORD,  USER_FIRSTNAME, USER_LASTNAME,
             USER_PHONE_NUMBER1, USER_PHONE_NUMBER2 ,USER_NATIONALITY, USER_TYPE_ID) ;
-
+    // user_types table string
     private static final String SQL_USER_TYPE_QUERY = String.format("create table %s" +
             " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL)",USER_TYPES_TABLE, USER_TYPES_ID, USER_TYPES_NAME);
+    // product_types table create string
+    private static final String SQL_PRODUCT_TYPES_QUERY = String.format("create table %s" +
+            " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL)",PRODUCT_TYPES_TABLE, PRODUCT_TYPES_ID, PRODUCT_TYPES_NAME);
+    // product table create string
+    private static final String SQL_PRODUCT_QUERY = String.format("create table %s" +
+            " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL, %s INTEGER, %s INTEGER)",PRODUCT_TABLE, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPES_ID);
+
 
     public GlobalDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-
     }
 
     /*public void setDefaultUserTypes(){
@@ -131,6 +147,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_USER_TABLE_QUERY);
         db.execSQL(SQL_USER_TYPE_QUERY);
+        db.execSQL(SQL_PRODUCT_TYPES_QUERY);
+        db.execSQL(SQL_PRODUCT_QUERY);
     }
 
 
@@ -138,7 +156,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
 //        db.execSQL(SQL_USER_TABLE_QUERY);
 //        db.execSQL(SQL_USER_TYPE_QUERY);
-
+        db.execSQL(SQL_PRODUCT_TYPES_QUERY);
+        db.execSQL(SQL_PRODUCT_QUERY);
     }
 
     /**
@@ -173,6 +192,27 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void addProductType(ProductType productType) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(PRODUCT_TYPES_ID, productType.getProductTypeId());
+        values.put(PRODUCT_TYPES_NAME, productType.getName());
+        // Inserting Singular Row
+        db.insert(PRODUCT_TYPES_TABLE, null, values);
+        db.close();
+    }
+
+    public void addProduct(Product product) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        // values.put(USER_ID, user.getId());
+        values.put(PRODUCT_NAME, product.getName());
+        values.put(PRODUCT_PRICE, product.getPrice());
+        values.put(PRODUCT_TYPES_ID, product.getProductTypeId());
+        // Inserting Singular Row
+        db.insert(PRODUCT_TABLE, null, values);
+        db.close();
+    }
 
     public long insertOneRecord(String tableName, ContentValues contentValues) {
         SQLiteDatabase db = getWritableDatabase();
@@ -233,6 +273,20 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return type;
     }
 
+    public ProductType findProductTypeByName(String productTypeName) {
+        ProductType productType = new ProductType();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        String whereClause = String.format("%s = ?", PRODUCT_TYPES_NAME);
+        String[] whereArgs = {productTypeName};
+        cursor = db.query(PRODUCT_TYPES_TABLE, null, whereClause, whereArgs ,null, null, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            productType.setProductTypeId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_TYPES_ID))));
+            productType.setName(cursor.getString(cursor.getColumnIndex(PRODUCT_TYPES_NAME)));
+        }
+        return productType;
+    }
 
     /**
      * This method is to fetch all user and return the list of user records
@@ -292,6 +346,50 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
         // return user list
         return userList;
+    }
+
+    public List<Product> getAllProduct() {
+        // array of columns to fetch
+        String[] columns = {
+                PRODUCT_ID,
+                PRODUCT_NAME,
+                PRODUCT_PRICE,
+                PRODUCT_TYPES_ID
+        };
+        // sorting orders
+        String sortOrder =
+                PRODUCT_NAME + " ASC";
+        List<Product>  productList= new ArrayList<Product>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        // query the user table
+        /**
+         * Here query function is used to fetch records from user table this function works like we use sql query.
+         * SQL query equivalent to this query function is
+         * SELECT ID,USER_USERNAME,... FROM USER_TABLE ORDER BY USER_USERNAME;
+         */
+        Cursor cursor = db.query(PRODUCT_TABLE, //Table to query
+                columns,    //columns to return
+                null,        //columns for the WHERE clause
+                null,        //The values for the WHERE clause
+                null,       //group the rows
+                null,       //filter by row groups
+                sortOrder); //The sort order
+        // Traversing through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Product product = new Product();
+                product.setId(cursor.getInt(cursor.getColumnIndex(PRODUCT_ID)));
+                product.setName(cursor.getString(cursor.getColumnIndex(PRODUCT_NAME)));
+                product.setPrice(cursor.getInt(cursor.getColumnIndex(PRODUCT_PRICE)));
+                product.setProductTypeId(cursor.getInt(cursor.getColumnIndex(PRODUCT_TYPES_ID)));
+                // Adding user record to list
+                productList.add(product);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        // return user list
+        return productList;
     }
 
     public List<User> findAllUserRecords(String table) {
@@ -465,6 +563,60 @@ public class GlobalDAO extends SQLiteOpenHelper {
                 selectionArgs,              //The values for the WHERE clause
                 null,                       //group the rows
                 null,                       //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+        if (cursorCount > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkProductType(String productType) {
+        // array of columns to fetch
+        String[] columns = {
+                PRODUCT_TYPES_ID
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        String selection = PRODUCT_TYPES_NAME + " = ?";
+        // selection argument
+        String[] selectionArgs = {productType};
+
+        Cursor cursor = db.query(PRODUCT_TYPES_TABLE, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
+                null);                      //The sort order
+        int cursorCount = cursor.getCount();
+        cursor.close();
+        db.close();
+        if (cursorCount > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean checkProduct(String productName) {
+        // array of columns to fetch
+        String[] columns = {
+                PRODUCT_ID
+        };
+        SQLiteDatabase db = this.getReadableDatabase();
+        // selection criteria
+        String selection = PRODUCT_NAME + " = ?";
+        // selection argument
+        String[] selectionArgs = {productName};
+
+        Cursor cursor = db.query(PRODUCT_TABLE, //Table to query
+                columns,                    //columns to return
+                selection,                  //columns for the WHERE clause
+                selectionArgs,              //The values for the WHERE clause
+                null,                       //group the rows
+                null,                      //filter by row groups
                 null);                      //The sort order
         int cursorCount = cursor.getCount();
         cursor.close();

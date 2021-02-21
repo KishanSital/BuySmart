@@ -133,8 +133,6 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
         return countryList;
     }
 
-
-
     public void Submit(View view) {
 
         if (!inputValidation.isInputEditTextFilled(firstname, getString(R.string.error_message_first_name))) {

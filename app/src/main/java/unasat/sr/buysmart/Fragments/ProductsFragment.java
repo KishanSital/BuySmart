@@ -1,5 +1,6 @@
 package unasat.sr.buysmart.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.DatabaseManager.Dao.ProductAdapter;
 import unasat.sr.buysmart.Entities.Product;
 import unasat.sr.buysmart.R;
@@ -30,7 +32,7 @@ public class ProductsFragment extends Fragment {
         View pView = inflater.inflate(R.layout.fragment_products, container, false);;
         recyclerViewProd = pView.findViewById(R.id.recyclerViewProd);
 
-        List<Product> productList = getData();
+        List<Product> productList = getData(pView.getContext());
 
         ProductAdapter productAdapter = new ProductAdapter(pView.getContext(), productList);
         recyclerViewProd.setAdapter(productAdapter);
@@ -39,13 +41,10 @@ public class ProductsFragment extends Fragment {
     }
 
     // Sample data for RecyclerView
-    private List<Product> getData()
-    {
+    private List<Product> getData(Context context) {
+        GlobalDAO globalDAO = new GlobalDAO(context);
         List<Product> list = new ArrayList<>();
-        list.add(new Product("Schoenen"));
-        list.add(new Product("Tassen"));
-        list.add(new Product("Meubles"));
-        list.add(new Product("Devices"));
+        list = globalDAO.getAllProduct();
         return list;
     }
 }
