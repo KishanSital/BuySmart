@@ -19,9 +19,7 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 
 import unasat.sr.buysmart.Fragments.DashboardFragment;
-import unasat.sr.buysmart.Fragments.DepositFragment;
 import unasat.sr.buysmart.Fragments.ProductsFragment;
-import unasat.sr.buysmart.Fragments.WithdrawFragment;
 import unasat.sr.buysmart.R;
 import unasat.sr.buysmart.Services.LoggedInService;
 
@@ -68,17 +66,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_deposit) {
-            loadFragment(new DepositFragment());
-            return true;
-        } else if (id == R.id.nav_withdraw) {
-            loadFragment(new WithdrawFragment());
-        } else if (id == R.id.nav_home){
+        if (id == R.id.nav_home){
             Bundle bundle1 = new Bundle();
             bundle1.putString("username",username.getText().toString().trim());
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.setArguments(bundle1);
             loadFragment(new DashboardFragment());
+            return true;
         }
         else if (id == R.id.nav_products) {
             loadFragment(new ProductsFragment());

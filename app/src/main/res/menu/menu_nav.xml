@@ -15,18 +15,9 @@
 
                 <item
                     android:id="@+id/nav_products"
-                    android:icon="@drawable/ic__deposit"
+                    android:icon="@drawable/img_319426"
                     android:title="@string/nav_products" />
-                <item
-                    android:id="@+id/nav_deposit"
-                    android:icon="@drawable/ic__deposit"
-                    android:title="@string/nav_deposit" />
                 <!--android:checked="true"-->
-
-                <item
-                    android:id="@+id/nav_withdraw"
-                    android:icon="@drawable/ic_withdraw"
-                    android:title="@string/nav_withdraw" />
 
                 <item
                     android:id="@+id/nav_logout"

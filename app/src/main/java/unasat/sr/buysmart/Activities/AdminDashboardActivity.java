@@ -18,10 +18,7 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import unasat.sr.buysmart.Fragments.DashboardFragment;
-import unasat.sr.buysmart.Fragments.DepositFragment;
 import unasat.sr.buysmart.Fragments.UsersFragment;
-import unasat.sr.buysmart.Fragments.WithdrawFragment;
 import unasat.sr.buysmart.R;
 import unasat.sr.buysmart.Services.LoggedInService;
 
