@@ -18,7 +18,6 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
-
     private static final String DATABASE_NAME = "buysmart.db";
     private static final int DATABASE_VERSION = 1;
     // constants user table
@@ -46,12 +45,18 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String PRODUCT_ID = "product_id";
     public static final String PRODUCT_NAME = "name";
     public static final String PRODUCT_PRICE = "price";
+    // constant orders table
+    public static final String ORDER_TABLE = "order";
+    public static final String ORDER_ID = "order_id";
+    public static final String CUSTOMER_ID = "customer_id";
+    public static final String ORDERED_DATE = "ordered_date";
+
 
     public static final int ADMIN = 1;
 
     // user table create string
     private static final String SQL_USER_TABLE_QUERY = String.format("create table %s " +
-                    "(%s INTEGER PRIMARY KEY , %s STRING NOT NULL UNIQUE , %s STRING NOT NULL UNIQUE,  %s STRING NOT NULL, " +
+            "(%s INTEGER PRIMARY KEY , %s STRING NOT NULL UNIQUE , %s STRING NOT NULL UNIQUE,  %s STRING NOT NULL, " +
             "%s STRING NOT NULL, %s STRING NOT NULL, %s INTEGER NOT NULL , %s INTEGER, %s STRING NOT NULL , %s INTEGER)",
             USER_TABLE, USER_ID, USER_EMAIL, USER_USERNAME, USER_PASSWORD,  USER_FIRSTNAME, USER_LASTNAME,
             USER_PHONE_NUMBER1, USER_PHONE_NUMBER2 ,USER_NATIONALITY, USER_TYPE_ID) ;
@@ -64,53 +69,13 @@ public class GlobalDAO extends SQLiteOpenHelper {
     // product table create string
     private static final String SQL_PRODUCT_QUERY = String.format("create table %s" +
             " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL, %s INTEGER, %s INTEGER)",PRODUCT_TABLE, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPES_ID);
-
+    // order table create string
+    private static final String SQL_ORDER_QUERY = String.format("create table %s" +
+            " (%s INTEGER PRIMARY KEY, %s INTEGER NOT NULL, %s INTEGER, %s STRING)",ORDER_TABLE, ORDER_ID, PRODUCT_ID, CUSTOMER_ID, ORDERED_DATE);
 
     public GlobalDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
-
-    /*public void setDefaultUserTypes(){
-        UserType type = findByUserType("Admin");
-        UserType type1 = findByUserType("Customer");
-        if (type !=null && type1 !=null){
-            return;
-        } else {
-            List<ContentValues> records = new ArrayList<>();
-            ContentValues record1 = new ContentValues();
-            record1.put(USER_TYPES_ID, 1);
-            record1.put(USER_TYPES_NAME, "Admin");
-            records.add(record1);
-            ContentValues record2 = new ContentValues();
-            record2.put(USER_TYPES_ID, 2);
-            record2.put(USER_TYPES_NAME, "Customer");
-            records.add(record2);
-            insertMultipleRecord(USER_TYPES_TABLE, records);
-
-        }
-    }
-
-
-    public void setAdminCredentials() {
-        User user = findByUsername("owner");
-        if (user != null) {
-            return;
-        }
-        //Set default username and password
-        ContentValues values = new ContentValues();
-        values.put(USER_ID, 1);
-        values.put(USER_EMAIL, "owner@owner.com");
-        values.put(USER_USERNAME, "owner");
-        values.put(USER_PASSWORD, "owner");
-        values.put(USER_FIRSTNAME, "owner");
-        values.put(USER_LASTNAME, "owner");
-        values.put(USER_PHONE_NUMBER1, 123456);
-        values.put(USER_PHONE_NUMBER2, 123459);
-        values.put(USER_NATIONALITY, "Suriname");
-        values.put(USER_TYPE_ID, 1);
-        insertOneRecord(USER_TABLE, values);
-
-    }*/
 
     public List<User> getUsersList(){
         String sql = "select * from " + USER_TABLE;
@@ -626,7 +591,4 @@ public class GlobalDAO extends SQLiteOpenHelper {
         }
         return false;
     }
-
-
 }
-

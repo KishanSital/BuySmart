@@ -1,5 +1,6 @@
 package unasat.sr.buysmart.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,7 @@ import unasat.sr.buysmart.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProductDetailsFragment#newInstance} factory method to
+ * Use the {@link ProductDetailsFragment} factory method to
  * create an instance of this fragment.
  */
 public class ProductDetailsFragment extends Fragment {
@@ -49,5 +50,10 @@ public class ProductDetailsFragment extends Fragment {
         productTextViewDetailTextView.setText(mParam1);
         priceTextViewDetailTextView.setText(mParam2);
         return v;
+    }
+
+    public void insertOrder(View view) {
+        Context context = view.getContext();
+
     }
 }

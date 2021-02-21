@@ -15,8 +15,6 @@ import unasat.sr.buysmart.Activities.MainActivity;
 
 import static unasat.sr.buysmart.Activities.App.CHANNEL_ID;
 
-
-
 public class LoggedInService extends Service {
     @Override
     public void onCreate() {
