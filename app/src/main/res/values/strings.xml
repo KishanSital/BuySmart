@@ -52,7 +52,7 @@
     <string name="register_success">Registration was successful</string>
     <string name="registration_message">Proceed to the login screen by clicking Yes</string>
     <string name="error_user_already_exists">User already exists</string>
-    <string name="logged_in_notifier">Financial Helper Notifier</string>
+    <string name="logged_in_notifier">Logged In Notifier</string>
     <string name="require_phone1">Enter Phone number 1</string>
     <string name="require_phone2">Enter Phone number 2</string>
     <string name="require_email">Enter Email</string>
