@@ -22,21 +22,6 @@ import unasat.sr.buysmart.Validation.InputValidation;
 
 public class MainActivity extends AppCompatActivity {
 
-
-   /* @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        // first insert ref data.
-        UserTypeDao userTypeDao = new UserTypeDao(this);
-        userTypeDao.insertRefUserTypes();
-
-        Intent loginIntent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(loginIntent);
-    }
-*/
-
-
         private EditText etUsername,etPassword;
         private GlobalDAO globalDAO;
         private InputValidation inputValidation;
@@ -94,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                         // bij de menu komt hij wel tevoorschijn, maar bij de fragment doet hij gek
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("username",etUsername.getText().toString().trim());
+                    bundle1.putString("username_id",etUsername.getText().toString().trim());
                     DashboardFragment dashboardFragment = new DashboardFragment();
                     dashboardFragment.setArguments(bundle1);
 

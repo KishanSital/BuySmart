@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import unasat.sr.buysmart.Entities.Order;
 import unasat.sr.buysmart.Entities.Product;
 import unasat.sr.buysmart.Entities.ProductType;
 import unasat.sr.buysmart.Entities.User;
@@ -19,7 +20,7 @@ import unasat.sr.buysmart.Entities.UserType;
 public class GlobalDAO extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "buysmart.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
@@ -46,7 +47,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String PRODUCT_NAME = "name";
     public static final String PRODUCT_PRICE = "price";
     // constant orders table
-    public static final String ORDER_TABLE = "order";
+    public static final String ORDER_TABLE = "orders";
     public static final String ORDER_ID = "order_id";
     public static final String CUSTOMER_ID = "customer_id";
     public static final String ORDERED_DATE = "ordered_date";
@@ -114,15 +115,16 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.execSQL(SQL_USER_TYPE_QUERY);
         db.execSQL(SQL_PRODUCT_TYPES_QUERY);
         db.execSQL(SQL_PRODUCT_QUERY);
+        db.execSQL(SQL_ORDER_QUERY);
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
 //        db.execSQL(SQL_USER_TABLE_QUERY);
 //        db.execSQL(SQL_USER_TYPE_QUERY);
-        db.execSQL(SQL_PRODUCT_TYPES_QUERY);
-        db.execSQL(SQL_PRODUCT_QUERY);
+//        db.execSQL(SQL_PRODUCT_TYPES_QUERY);
+//        db.execSQL(SQL_PRODUCT_QUERY);
+        db.execSQL(SQL_ORDER_QUERY);
     }
 
     /**
@@ -170,7 +172,6 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public void addProduct(Product product) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        // values.put(USER_ID, user.getId());
         values.put(PRODUCT_NAME, product.getName());
         values.put(PRODUCT_PRICE, product.getPrice());
         values.put(PRODUCT_TYPES_ID, product.getProductTypeId());
@@ -179,28 +180,16 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
     }
 
-    public long insertOneRecord(String tableName, ContentValues contentValues) {
-        SQLiteDatabase db = getWritableDatabase();
-        long rowId = db.insert(tableName, null, contentValues);
+    public void addOrder(Order order) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CUSTOMER_ID, order.getCustomerId());
+        values.put(ORDERED_DATE, order.getOrderedDate());
+        values.put(PRODUCT_ID, order.getProductId());
+
+        // Inserting Singular Row
+        db.insert(ORDER_TABLE, null, values);
         db.close();
-        //return the row ID of the newly inserted row, or -1 if an error occurred
-        return rowId;
-    }
-
-
-
-    public boolean insertMultipleRecord(String tableName, List<ContentValues> contentValuesList) {
-        SQLiteDatabase db = getWritableDatabase();
-        long countOnSucces = 0;
-        long rowId = 0;
-        for (ContentValues contentValues : contentValuesList) {
-            rowId = db.insert(tableName, null, contentValues);
-            countOnSucces = (rowId == 1 ? countOnSucces++ : countOnSucces);
-        }
-        boolean isSuccess = (countOnSucces > 0 && contentValuesList.size() == countOnSucces);
-        db.close();
-        //return the true id all inserts where succesfull
-        return isSuccess;
     }
 
     public User findByUsername(String username) {
@@ -222,7 +211,6 @@ public class GlobalDAO extends SQLiteOpenHelper {
         }
         return user;
     }
-
 
     public UserType findByUserType(String userType) {
         UserType type = new UserType();

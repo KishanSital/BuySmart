@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -45,13 +48,23 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productTextView.setText(productList.get(position).getName());
         holder.priceTextView.setText("Price: " + String.valueOf(productList.get(position).getPrice()));
 
+
         holder.productItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Bundle extras = activity.getIntent().getExtras();
+                String user = extras.getString("username");
+//                if (user!= null) {
+//                    System.out.println(user);
+////                    username.setText(user);
+//                }
                 Bundle bundle = new Bundle();
                 bundle.putString("productName", productList.get(position).getName());
                 bundle.putString("productPrice", String.valueOf(productList.get(position).getPrice()));
+                bundle.putInt("productId", productList.get(position).getId());
+                bundle.putString("username", user);
+
                 Fragment myFragment = new ProductDetailsFragment();
                 myFragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFragment).addToBackStack(null).commit();

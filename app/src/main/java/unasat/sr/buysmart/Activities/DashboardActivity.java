@@ -49,16 +49,19 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         if (user!= null) {
             System.out.println(user);
             username.setText(user);
-
         }
         setSupportActionBar(toolbar);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open_drawer, R.string.nav_close_drawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        //
+        Bundle bundle = new Bundle();
+        bundle.putString("username", user);
+        DashboardFragment dashboardFragment = new DashboardFragment();
+        dashboardFragment.setArguments(bundle);
+        loadFragment(dashboardFragment);
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
-        // loadFragment(new DashboardFragment());
-
     }
 
 
@@ -67,14 +70,20 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_home){
+            // bij switchen van menu worden args niet gezet.
             Bundle bundle1 = new Bundle();
-            bundle1.putString("username",username.getText().toString().trim());
+            Bundle extras = getIntent().getExtras();
+            String user = extras.getString("username");
+            bundle1.putString("username", user);
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.setArguments(bundle1);
             loadFragment(new DashboardFragment());
             return true;
         }
         else if (id == R.id.nav_products) {
+            Bundle bundle12 = new Bundle();
+            ProductsFragment productsFragment = new ProductsFragment();
+            productsFragment.setArguments(bundle12);
             loadFragment(new ProductsFragment());
             return true;
         }

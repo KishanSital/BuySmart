@@ -25,4 +25,8 @@
 
     <style name="Theme.BuySmart.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Theme.UnknownTestCase.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.UnknownTestCase.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

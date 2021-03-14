@@ -13,10 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BuySmart">
-        <activity android:name=".Activities.AdminDashboardActivity"></activity>
+        <activity android:name=".Activities.ProductListActivity"></activity>
+        <activity android:name=".Activities.AdminDashboardActivity" />
         <activity android:name=".Activities.RegistrationActivity" />
         <activity android:name=".Activities.DashboardActivity" />
-
         <activity
             android:name=".Activities.SplashScreenActivity"
             android:theme="@style/SplashScreen">
