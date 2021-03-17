@@ -20,6 +20,11 @@
                 <!--android:checked="true"-->
 
                 <item
+                    android:id="@+id/nav_users"
+                    android:icon="@drawable/ic__supervised_user"
+                    android:title="@string/nav_manage_cred" />
+
+                <item
                     android:id="@+id/nav_logout"
                     android:icon="@drawable/ic_stop"
                     android:title="@string/nav_logout"

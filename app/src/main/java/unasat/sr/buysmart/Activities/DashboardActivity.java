@@ -20,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import unasat.sr.buysmart.Fragments.DashboardFragment;
 import unasat.sr.buysmart.Fragments.ProductsFragment;
+import unasat.sr.buysmart.Fragments.UsersFragment;
 import unasat.sr.buysmart.R;
 import unasat.sr.buysmart.Services.LoggedInService;
 
@@ -30,6 +31,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView username;
+    private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         View header = navigationView.getHeaderView(0);
         username = header.findViewById(R.id.username_textView);
         Bundle extras = getIntent().getExtras();
-        String user = extras.getString("username");
+         user = extras.getString("username");
         if (user!= null) {
             System.out.println(user);
             username.setText(user);
@@ -70,17 +72,36 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         int id = item.getItemId();
 
         if (id == R.id.nav_home){
+            Bundle bundle = new Bundle();
+            bundle.putString("username", user);
+            DashboardFragment dashboardFragment = new DashboardFragment();
+            dashboardFragment.setArguments(bundle);
+            loadFragment(dashboardFragment);
+
             // bij switchen van menu worden args niet gezet.
-            Bundle bundle1 = new Bundle();
+          /*  Bundle bundle1 = new Bundle();
             Bundle extras = getIntent().getExtras();
             String user = extras.getString("username");
             bundle1.putString("username", user);
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.setArguments(bundle1);
-            loadFragment(new DashboardFragment());
+            loadFragment(new DashboardFragment());*/
             return true;
         }
+
+        if (id == R.id.nav_users){
+            Bundle bundle = new Bundle();
+            bundle.putString("username", user);
+            UsersFragment usersFragment = new UsersFragment();
+            usersFragment.setArguments(bundle);
+            loadFragment(usersFragment);
+            return true;
+        }
+
+
+
         else if (id == R.id.nav_products) {
+
             Bundle bundle12 = new Bundle();
             ProductsFragment productsFragment = new ProductsFragment();
             productsFragment.setArguments(bundle12);

@@ -105,8 +105,32 @@ public class GlobalDAO extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(USER_USERNAME,userClass.getUsername());
         contentValues.put(USER_PASSWORD,userClass.getPassword());
+        contentValues.put(USER_EMAIL, userClass.getEmail());
+                contentValues.put(USER_FIRSTNAME, userClass.getFirstname());
+        contentValues.put(USER_LASTNAME, userClass.getLastname());
+                contentValues.put(USER_PHONE_NUMBER1, userClass.getPhoneNumber1());
+        contentValues.put(USER_PHONE_NUMBER2, userClass.getPhoneNumber2());
+                contentValues.put(USER_NATIONALITY, userClass.getNationality());
         db.update(USER_TABLE,contentValues,USER_USERNAME + " = ?" ,
                 new String[]{userClass.getUsername()});
+    }
+
+    public void updateUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(USER_EMAIL, user.getEmail());
+        values.put(USER_USERNAME, user.getUsername());
+        values.put(USER_PASSWORD, user.getPassword());
+        values.put(USER_FIRSTNAME, user.getFirstname());
+        values.put(USER_LASTNAME, user.getLastname());
+        values.put(USER_PHONE_NUMBER1, user.getPhoneNumber1());
+        values.put(USER_PHONE_NUMBER2, user.getPhoneNumber2());
+        values.put(USER_NATIONALITY, user.getNationality());
+        values.put(USER_TYPE_ID, user.getUserTypeId());
+        // updating row
+        db.update(USER_TABLE, values, USER_ID + " = ?",
+                new String[]{String.valueOf(user.getUserId())});
+        db.close();
     }
 
     @Override
@@ -203,6 +227,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
             cursor.moveToFirst();
             user.setEmail(cursor.getString(cursor.getColumnIndex(USER_EMAIL)));
             user.setUsername(cursor.getString(cursor.getColumnIndex(USER_USERNAME)));
+            user.setPassword(cursor.getString(cursor.getColumnIndex(USER_PASSWORD)));
             user.setFirstname(cursor.getString(cursor.getColumnIndex(USER_FIRSTNAME)));
             user.setLastname(cursor.getString(cursor.getColumnIndex(USER_LASTNAME)));
             user.setPhoneNumber1(cursor.getInt(cursor.getColumnIndex(USER_PHONE_NUMBER1)));
@@ -363,23 +388,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
      *
      * parameter user
      */
-    public void updateUser(User user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(USER_EMAIL, user.getEmail());
-        values.put(USER_USERNAME, user.getUsername());
-        values.put(USER_PASSWORD, user.getPassword());
-        values.put(USER_FIRSTNAME, user.getFirstname());
-        values.put(USER_LASTNAME, user.getLastname());
-        values.put(USER_PHONE_NUMBER1, user.getPhoneNumber1());
-        values.put(USER_PHONE_NUMBER2, user.getPhoneNumber2());
-        values.put(USER_NATIONALITY, user.getNationality());
-        values.put(USER_TYPE_ID, user.getUserTypeId());
-        // updating row
-        db.update(USER_TABLE, values, USER_ID + " = ?",
-                new String[]{String.valueOf(user.getUserId())});
-        db.close();
-    }
+
 
     /**
      * This method is to delete user record

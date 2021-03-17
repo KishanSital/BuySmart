@@ -17,37 +17,294 @@
 
 
         <TextView
-            android:id="@+id/nationality"
-            android:layout_width="269dp"
+            android:id="@+id/username"
+            android:layout_width="142dp"
             android:layout_height="29dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="552dp"
-            android:layout_marginEnd="62dp"
-            android:layout_marginRight="62dp"
-            android:layout_marginBottom="151dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="12dp"
             android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/user_name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/usernameLbl" />
+
+        <TextView
+            android:id="@+id/usernameLbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/user_name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/emailLbl"
+            app:layout_constraintEnd_toStartOf="@+id/username"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="142dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/emailEditText"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/emailLbl"
+            app:layout_constraintTop_toBottomOf="@+id/username" />
+
+        <TextView
+            android:id="@+id/emailLbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/emailEditText"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/usernameLbl" />
+
+        <TextView
+            android:id="@+id/lastname"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/lastNameEditText"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/lastnameLbl"
+            app:layout_constraintTop_toBottomOf="@+id/firstname" />
+
+
+        <TextView
+            android:id="@+id/lastnameLbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/lastNameEditText"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/lastname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstnameLbl" />
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/password"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/passwordLbl"
+            app:layout_constraintTop_toBottomOf="@+id/email" />
+
+        <TextView
+            android:id="@+id/passwordLbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/password"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/password"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailLbl" />
+
+        <TextView
+            android:id="@+id/phonenumber1"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/phonenumber1Lbl"
+            app:layout_constraintTop_toBottomOf="@+id/lastname" />
+
+        <TextView
+            android:id="@+id/phonenumber1Lbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/phoneNumber1"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/phonenumber1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lastnameLbl" />
+
+        <TextView
+            android:id="@+id/phonenumber2"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:inputType="number"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/nationality"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/phonenumber2Lbl"
+            app:layout_constraintTop_toBottomOf="@+id/phonenumber1" />
+
+        <TextView
+            android:id="@+id/phonenumber2Lbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/phoneNumber2"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/nationalityLbl"
+            app:layout_constraintEnd_toStartOf="@+id/phonenumber2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phonenumber1Lbl" />
+
+        <TextView
+            android:id="@+id/nationality"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
             android:text="@string/nationality"
+            android:textAlignment="center"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/nationalityLbl"
+            app:layout_constraintTop_toBottomOf="@+id/phonenumber2" />
+
+        <TextView
+            android:id="@+id/nationalityLbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/nationality"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/nationality"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/phonenumber2Lbl" />
+
+        <TextView
+            android:id="@+id/firstname"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/firstNameEditText"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/firstnameLbl"
+            app:layout_constraintTop_toBottomOf="@+id/password" />
+
+        <TextView
+            android:id="@+id/firstnameLbl"
+            android:layout_width="142dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="62dp"
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:background="@drawable/round_edittext"
+            android:gravity="center_horizontal"
+            android:text="@string/firstNameEditText"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/firstname"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordLbl" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="375dp"
             android:layout_height="246dp"
             android:layout_margin="16dp"
-            android:layout_marginTop="52dp"
-            android:layout_marginBottom="177dp"
             android:gravity="bottom|start"
             app:layout_constraintBottom_toTopOf="@+id/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.555"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -58,7 +315,6 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginEnd="7dp"
                 android:layout_marginRight="7dp"
-                android:layout_marginBottom="17dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_account"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -66,29 +322,11 @@
                 app:layout_constraintHorizontal_bias="0.439"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.4" />
+                app:layout_constraintVertical_bias="0.0" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="269dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="446dp"
-            android:layout_marginEnd="62dp"
-            android:layout_marginRight="62dp"
-            android:layout_marginBottom="76dp"
-            android:background="@drawable/round_edittext"
-            android:text="@string/user_name"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/nationality"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

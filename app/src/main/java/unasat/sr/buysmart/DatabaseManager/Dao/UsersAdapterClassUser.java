@@ -13,18 +13,18 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
-public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.ViewHolder>{
+public class UsersAdapterClassUser extends RecyclerView.Adapter<UsersAdapterClassUser.ViewHolder>{
 
 
     private List<User> users;
     private Context context;
     private  GlobalDAO databaseHelperClass;
 
-
-    public UsersAdapterClass(List<User> users, Context context) {
+    public UsersAdapterClassUser(List<User> users, Context context) {
         this.users = users;
         this.context = context;
         databaseHelperClass = new GlobalDAO(context);
@@ -34,7 +34,7 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.employee_item_list,parent,false);
+        View view = layoutInflater.inflate(R.layout.employee_item_list_user,parent,false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -74,14 +74,14 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
             }
         });
 
-        holder.button_delete.setOnClickListener(new View.OnClickListener() {
+/*        holder.button_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 databaseHelperClass.deleteUser(usersclass.getUsername());
                 users.remove(position);
                 notifyDataSetChanged();
             }
-        });
+        });*/
 
     }
 
@@ -102,7 +102,7 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
         EditText editText_nationality;
 
         Button button_Edit;
-        Button button_delete;
+      //  Button button_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -116,7 +116,7 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
             editText_phonenumber1 = itemView.findViewById(R.id.et_phoneNumber1);
             editText_phonenumber2 = itemView.findViewById(R.id.et_phoneNumber2);
             editText_nationality = itemView.findViewById(R.id.et_nationality);
-            button_delete = itemView.findViewById(R.id.button_delete);
+         //   button_delete = itemView.findViewById(R.id.button_delete);
             button_Edit = itemView.findViewById(R.id.button_edit);
 
         }

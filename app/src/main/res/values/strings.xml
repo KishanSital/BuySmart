@@ -70,4 +70,5 @@
     <string name="error_message_users">There are no users \n \n in the database</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="nav_manage_cred">Credentials</string>
 </resources>

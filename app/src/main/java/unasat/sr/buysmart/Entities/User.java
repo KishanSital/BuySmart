@@ -18,9 +18,22 @@ public class User {
 
     }
 
-    public User(String username, String password) {
+
+    public User( String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String email, String username, String password, String firstname, String lastname, int phoneNumber1,
+                int phoneNumber2, String nationality) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phoneNumber1 = phoneNumber1;
+        this.phoneNumber2 = phoneNumber2;
+        this.nationality = nationality;
     }
     public User(int userId, String email, String username, String password, String firstname, String lastname, int phoneNumber1,
                 int phoneNumber2, String nationality, int userTypeId) {
@@ -130,6 +143,13 @@ public class User {
                 ", nationality='" + nationality + '\'' +
                 ", userTypeId=" + userTypeId +
                 '}';
+    }
+
+    public String toStringPhone1() {
+        return ""+ phoneNumber1;
+    }
+    public String toStringPhone2() {
+        return ""+ phoneNumber1;
     }
 }
 

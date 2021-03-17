@@ -198,16 +198,6 @@
                 app:backgroundTint="#00BCD4"
                 />
 
-            <Button
-                android:id="@+id/button_delete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:layout_weight="2"
-                android:text="Delete"
-                android:textColor="@android:color/white"
-                app:backgroundTint="#00BCD4"
-                />
         </LinearLayout>
 
         <View
