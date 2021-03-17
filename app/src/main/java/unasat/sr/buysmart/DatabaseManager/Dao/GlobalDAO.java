@@ -19,8 +19,8 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "buysmart.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "buysmart2.db";
+    private static final int DATABASE_VERSION = 3;
     // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
@@ -144,10 +144,10 @@ public class GlobalDAO extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-//        db.execSQL(SQL_USER_TABLE_QUERY);
-//        db.execSQL(SQL_USER_TYPE_QUERY);
-//        db.execSQL(SQL_PRODUCT_TYPES_QUERY);
-//        db.execSQL(SQL_PRODUCT_QUERY);
+        db.execSQL(SQL_USER_TABLE_QUERY);
+        db.execSQL(SQL_USER_TYPE_QUERY);
+        db.execSQL(SQL_PRODUCT_TYPES_QUERY);
+        db.execSQL(SQL_PRODUCT_QUERY);
         db.execSQL(SQL_ORDER_QUERY);
     }
 
