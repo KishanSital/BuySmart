@@ -1,12 +1,14 @@
 package unasat.sr.buysmart.DatabaseManager.Dao;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
@@ -44,6 +46,7 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
         final User usersclass = users.get(position);
 
         holder.editText_userName.setText(usersclass.getUsername());
+
         holder.editText_Password.setText(usersclass.getPassword());
         holder.editText_nationality.setText(usersclass.getNationality());
         holder.editText_phonenumber2.setText(usersclass.toStringPhone2());
@@ -77,9 +80,16 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
         holder.button_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseHelperClass.deleteUser(usersclass.getUsername());
-                users.remove(position);
-                notifyDataSetChanged();
+                if (databaseHelperClass.checkUser("owner")){
+                    Toast.makeText(v.getContext(), "Sorry can't remove this user", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    databaseHelperClass.deleteUser(usersclass.getUsername());
+                    users.remove(position);
+                    notifyDataSetChanged();
+                }
+
             }
         });
 
