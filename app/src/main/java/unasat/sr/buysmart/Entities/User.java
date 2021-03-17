@@ -149,7 +149,7 @@ public class User {
         return ""+ phoneNumber1;
     }
     public String toStringPhone2() {
-        return ""+ phoneNumber1;
+        return ""+ phoneNumber2;
     }
 }
 

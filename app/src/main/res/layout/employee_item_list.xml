@@ -169,7 +169,7 @@
             android:id="@+id/phonenumber2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/phoneNumber1" />
+            android:text="@string/phoneNumber2" />
 
         <EditText
             android:id="@+id/et_phoneNumber2"
