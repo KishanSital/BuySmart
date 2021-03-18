@@ -80,7 +80,10 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
         holder.button_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (databaseHelperClass.checkUser("owner")){
+                String stringName = holder.editText_userName.getText().toString();
+                String stringPassword = holder.editText_Password.getText().toString();
+                if (databaseHelperClass.checkIfUserAdmin(stringName
+                        .trim(), stringPassword.trim())){
                     Toast.makeText(v.getContext(), "Sorry can't remove this user", Toast.LENGTH_SHORT).show();
                     return;
                 }
