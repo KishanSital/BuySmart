@@ -1,6 +1,7 @@
 package unasat.sr.buysmart.DatabaseManager.Dao;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
+import unasat.sr.buysmart.Activities.ProductListActivity;
 import unasat.sr.buysmart.Entities.Product;
 import unasat.sr.buysmart.Fragments.ProductDetailsFragment;
 import unasat.sr.buysmart.R;
@@ -52,22 +54,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Bundle extras = activity.getIntent().getExtras();
-                String user = extras.getString("username");
+//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+//                Bundle extras = activity.getIntent().getExtras();
+//                String user = extras.getString("username");
 //                if (user!= null) {
 //                    System.out.println(user);
 ////                    username.setText(user);
 //                }
-                Bundle bundle = new Bundle();
-                bundle.putString("productName", productList.get(position).getName());
-                bundle.putString("productPrice", String.valueOf(productList.get(position).getPrice()));
-                bundle.putInt("productId", productList.get(position).getId());
-                bundle.putString("username", user);
-
-                Fragment myFragment = new ProductDetailsFragment();
-                myFragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFragment).addToBackStack(null).commit();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("productName", productList.get(position).getName());
+//                bundle.putString("productPrice", String.valueOf(productList.get(position).getPrice()));
+//                bundle.putInt("productId", productList.get(position).getId());
+//                bundle.putString("username", user);
+//
+//                Fragment myFragment = new ProductDetailsFragment();
+//                myFragment.setArguments(bundle);
+//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFragment).addToBackStack(null).commit();
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ProductListActivity.class);
+//                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                context.startActivity(intent);
             }
         });
     }
