@@ -17,6 +17,7 @@ import java.util.Date;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.Entities.Order;
+import unasat.sr.buysmart.Entities.Product;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
@@ -33,14 +34,21 @@ public class ProductDetailsFragment extends Fragment {
     private static final String ARG_PARAM2 = "productPrice";
     private static final String ARG_PARAM3 = "username";
     private static final String ARG_PARAM4 = "productId";
+    public static final String ARG_PROD_ID = "productId";
+    public static final String ARG_USERNAME = "username";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private String mParam3;
     private int mParam4;
+    private int mProd_id;
+    private String mUsername;
     private TextView productTextViewDetailTextView, priceTextViewDetailTextView;
     private Button orderBtn;
+
+    private User user;
+    private Product product;
 
     public ProductDetailsFragment() {}
 
@@ -52,8 +60,11 @@ public class ProductDetailsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getString(ARG_PARAM3);
             mParam4 = getArguments().getInt(ARG_PARAM4);
-            System.out.println(mParam3);
-            System.out.println(mParam4);
+            mProd_id = getArguments().getInt(ARG_PROD_ID);
+            mUsername = getArguments().getString(ARG_USERNAME);
+
+            System.out.println(mProd_id);
+            System.out.println(mUsername);
         }
     }
 
@@ -62,10 +73,13 @@ public class ProductDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_product_details, container, false);
+        GlobalDAO globalDAO = new GlobalDAO(v.getContext());
+//        user = globalDAO.findByUsername(mUsername);
+        product = globalDAO.findProductById(String.valueOf(mProd_id));
         productTextViewDetailTextView = v.findViewById(R.id.productTextViewDetailTextView);
         priceTextViewDetailTextView = v.findViewById(R.id.priceTextViewDetailTextView);
-        productTextViewDetailTextView.setText(mParam1);
-        priceTextViewDetailTextView.setText(mParam2);
+        productTextViewDetailTextView.setText(product.getName());
+        priceTextViewDetailTextView.setText(String.valueOf(product.getPrice()));
         orderBtn = v.findViewById(R.id.orderBtn);
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +99,7 @@ public class ProductDetailsFragment extends Fragment {
             order.setCustomerId(user.getUserId());
             order.setProductId(mParam4);
             Date date = new Date();
-            order.setOrderedDate("Now");
+            order.setOrderedDate(String.valueOf(date));
             globalDAO.addOrder(order);
             System.out.println("Added order for " + mParam4);
         } else {

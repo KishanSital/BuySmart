@@ -266,6 +266,23 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return productType;
     }
 
+    public Product findProductById(String productId) {
+        Product product= new Product();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        String whereClause = String.format("%s = ?", PRODUCT_ID);
+        String[] whereArgs = {productId};
+        cursor = db.query(PRODUCT_TABLE, null, whereClause, whereArgs ,null, null, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            product.setProductTypeId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_TYPES_ID))));
+            product.setName(cursor.getString(cursor.getColumnIndex(PRODUCT_NAME)));
+            product.setPrice(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_PRICE))));
+            product.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_ID))));
+        }
+        return product;
+    }
+
     /**
      * This method is to fetch all user and return the list of user records
      * returns a list
