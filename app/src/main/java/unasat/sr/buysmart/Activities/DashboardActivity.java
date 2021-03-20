@@ -97,9 +97,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             loadFragment(usersFragment);
             return true;
         }
-
-
-
         else if (id == R.id.nav_products) {
 
             Bundle bundle12 = new Bundle();
@@ -117,7 +114,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             startActivity(intent);
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,6 +127,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
+
     public void loadFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

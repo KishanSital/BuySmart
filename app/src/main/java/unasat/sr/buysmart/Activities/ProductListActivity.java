@@ -40,20 +40,16 @@ public class ProductListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if (savedInstanceState == null) {
-            // Create the detail fragment and add it to the activity
-            // using a fragment transaction.
-            Bundle arguments = new Bundle();
-            Fragment productDetailFragment = new ProductDetailsFragment();
-//            arguments.putString(ProductDetailsFragment.ARG_ITEM_ID,
-//                    getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
-//            ItemDetailFragment fragment = new ItemDetailFragment();
-//            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.item_detail_container, productDetailFragment)
-                    .commit();
-        }
+//        int prodId = getIntent().getIntExtra(ProductDetailsFragment.ARG_PROD_ID, 0);
 
+        if (savedInstanceState == null) {
+            Bundle arguments = new Bundle();
+
+            Fragment productDetailFragment = new ProductDetailsFragment();
+            arguments.putInt(ProductDetailsFragment.ARG_PROD_ID, getIntent().getIntExtra(ProductDetailsFragment.ARG_PROD_ID, 0));
+            productDetailFragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction().add(R.id.item_detail_container, productDetailFragment).commit();
+        }
     }
 
     @Override

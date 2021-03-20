@@ -72,7 +72,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 //                activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFragment).addToBackStack(null).commit();
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ProductListActivity.class);
-//                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item.id);
+                intent.putExtra(ProductDetailsFragment.ARG_PROD_ID, productList.get(position).getId());
+                System.out.println("Master" + productList.get(position).getId());
                 context.startActivity(intent);
             }
         });

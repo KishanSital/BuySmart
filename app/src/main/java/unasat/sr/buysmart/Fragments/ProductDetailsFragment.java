@@ -30,20 +30,10 @@ public class ProductDetailsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "productName";
-    private static final String ARG_PARAM2 = "productPrice";
-    private static final String ARG_PARAM3 = "username";
-    private static final String ARG_PARAM4 = "productId";
     public static final String ARG_PROD_ID = "productId";
-    public static final String ARG_USERNAME = "username";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-    private String mParam3;
-    private int mParam4;
     private int mProd_id;
-    private String mUsername;
     private TextView productTextViewDetailTextView, priceTextViewDetailTextView;
     private Button orderBtn;
 
@@ -56,15 +46,11 @@ public class ProductDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-            mParam3 = getArguments().getString(ARG_PARAM3);
-            mParam4 = getArguments().getInt(ARG_PARAM4);
-            mProd_id = getArguments().getInt(ARG_PROD_ID);
-            mUsername = getArguments().getString(ARG_USERNAME);
 
-            System.out.println(mProd_id);
-            System.out.println(mUsername);
+            mProd_id = getArguments().getInt(ARG_PROD_ID);
+
+            System.out.println("Details " + mProd_id);
+//            System.out.println(mUsername);
         }
     }
 
@@ -81,29 +67,31 @@ public class ProductDetailsFragment extends Fragment {
         productTextViewDetailTextView.setText(product.getName());
         priceTextViewDetailTextView.setText(String.valueOf(product.getPrice()));
         orderBtn = v.findViewById(R.id.orderBtn);
-        orderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addOrder(v);
-            }
-        });
+
+
+//        orderBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addOrder(v);
+//            }
+//        });
         return v;
     }
 
-    public void addOrder(View view) {
-        Context context = view.getContext();
-        GlobalDAO globalDAO = new GlobalDAO(context);
-        User user = globalDAO.findByUsername(mParam3);
-        if(user != null) {
-            Order order = new Order();
-            order.setCustomerId(user.getUserId());
-            order.setProductId(mParam4);
-            Date date = new Date();
-            order.setOrderedDate(String.valueOf(date));
-            globalDAO.addOrder(order);
-            System.out.println("Added order for " + mParam4);
-        } else {
-            System.out.println("Failed to add ordered.");
-        }
-    }
+//    public void addOrder(View view) {
+//        Context context = view.getContext();
+//        GlobalDAO globalDAO = new GlobalDAO(context);
+//        User user = globalDAO.findByUsername(mParam3);
+//        if(user != null) {
+//            Order order = new Order();
+//            order.setCustomerId(user.getUserId());
+//            order.setProductId(mParam4);
+//            Date date = new Date();
+//            order.setOrderedDate(String.valueOf(date));
+//            globalDAO.addOrder(order);
+//            System.out.println("Added order for " + mParam4);
+//        } else {
+//            System.out.println("Failed to add ordered.");
+//        }
+//    }
 }
