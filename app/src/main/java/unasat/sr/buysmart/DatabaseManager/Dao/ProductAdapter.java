@@ -54,25 +54,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.productItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                Bundle extras = activity.getIntent().getExtras();
-//                String user = extras.getString("username");
-//                if (user!= null) {
-//                    System.out.println(user);
-////                    username.setText(user);
-//                }
-//                Bundle bundle = new Bundle();
-//                bundle.putString("productName", productList.get(position).getName());
-//                bundle.putString("productPrice", String.valueOf(productList.get(position).getPrice()));
-//                bundle.putInt("productId", productList.get(position).getId());
-//                bundle.putString("username", user);
-//
-//                Fragment myFragment = new ProductDetailsFragment();
-//                myFragment.setArguments(bundle);
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, myFragment).addToBackStack(null).commit();
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                Bundle extras = activity.getIntent().getExtras();
+                String user = extras.getString("username");
+                if (user!= null) {
+                    System.out.println(user);
+                }
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ProductListActivity.class);
                 intent.putExtra(ProductDetailsFragment.ARG_PROD_ID, productList.get(position).getId());
+                intent.putExtra(ProductDetailsFragment.ARG_USERNAME, user);
                 System.out.println("Master" + productList.get(position).getId());
                 context.startActivity(intent);
             }
@@ -94,7 +85,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             super(itemView);
             productTextView = itemView.findViewById(R.id.productTextView);
             priceTextView = itemView.findViewById(R.id.priceTextView);
-            orderBtn = itemView.findViewById(R.id.orderBtn);
             productItemLayout = itemView.findViewById(R.id.productItemLayout);
         }
     }

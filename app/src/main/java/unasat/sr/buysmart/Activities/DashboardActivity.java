@@ -77,15 +77,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             DashboardFragment dashboardFragment = new DashboardFragment();
             dashboardFragment.setArguments(bundle);
             loadFragment(dashboardFragment);
-
-            // bij switchen van menu worden args niet gezet.
-          /*  Bundle bundle1 = new Bundle();
-            Bundle extras = getIntent().getExtras();
-            String user = extras.getString("username");
-            bundle1.putString("username", user);
-            DashboardFragment dashboardFragment = new DashboardFragment();
-            dashboardFragment.setArguments(bundle1);
-            loadFragment(new DashboardFragment());*/
             return true;
         }
 

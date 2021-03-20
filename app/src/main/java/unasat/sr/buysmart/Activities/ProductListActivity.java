@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -13,6 +14,11 @@ import android.view.View;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.Date;
+
+import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
+import unasat.sr.buysmart.Entities.Order;
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Fragments.ProductDetailsFragment;
 import unasat.sr.buysmart.R;
 
@@ -25,12 +31,14 @@ public class ProductListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
+        int prodId = getIntent().getIntExtra(ProductDetailsFragment.ARG_PROD_ID, 0);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+                addOrder(view, getIntent().getStringExtra(ProductDetailsFragment.ARG_USERNAME), prodId, getApplicationContext());
             }
         });
 
@@ -40,13 +48,11 @@ public class ProductListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-//        int prodId = getIntent().getIntExtra(ProductDetailsFragment.ARG_PROD_ID, 0);
-
         if (savedInstanceState == null) {
             Bundle arguments = new Bundle();
 
             Fragment productDetailFragment = new ProductDetailsFragment();
-            arguments.putInt(ProductDetailsFragment.ARG_PROD_ID, getIntent().getIntExtra(ProductDetailsFragment.ARG_PROD_ID, 0));
+            arguments.putInt(ProductDetailsFragment.ARG_PROD_ID, prodId);
             productDetailFragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction().add(R.id.item_detail_container, productDetailFragment).commit();
         }
@@ -59,5 +65,23 @@ public class ProductListActivity extends AppCompatActivity {
             finish();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addOrder(View view, String username, int prodId, Context context) {
+        GlobalDAO globalDAO = new GlobalDAO(context);
+        User user = globalDAO.findByUsername(username);
+        if(user != null) {
+            Order order = new Order();
+            order.setCustomerId(user.getUserId());
+            order.setProductId(prodId);
+            Date date = new Date();
+            order.setOrderedDate(String.valueOf(date));
+            globalDAO.addOrder(order);
+            System.out.println("Added order for " + username);
+            Snackbar.make(view, prodId + " ordered", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        } else {
+            System.out.println("Failed to add ordered.");
+        }
     }
 }
