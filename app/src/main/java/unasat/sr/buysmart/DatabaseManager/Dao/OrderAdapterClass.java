@@ -43,7 +43,7 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         if(orderList != null) {
-            holder.textViewNumberOrder.setText(String.valueOf(position));
+            holder.textViewNumberOrder.setText(String.valueOf(position + 1));
             holder.productOTextView.setText(String.valueOf(orderList.get(position).getId()));
             holder.priceOTextView.setText(String.valueOf(orderList.get(position).getProductId()));
             holder.dateTextView.setText(orderList.get(position).getOrderedDate());
