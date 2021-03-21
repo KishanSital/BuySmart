@@ -16,6 +16,7 @@
     <string name="logged_in_start_service">Logged in service channel</string>
     <string name="nav_home">Dashboard</string>
     <string name="nav_products">Products</string>
+    <string name="nav_orders">My Orders</string>
     <string name="nav_deposit">Deposit</string>
     <string name="nav_withdraw">Withdraw</string>
     <string name="nav_logout">Logout</string>

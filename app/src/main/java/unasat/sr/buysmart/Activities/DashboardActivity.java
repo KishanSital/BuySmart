@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 
 import unasat.sr.buysmart.Fragments.DashboardFragment;
+import unasat.sr.buysmart.Fragments.OrdersFragment;
 import unasat.sr.buysmart.Fragments.ProductsFragment;
 import unasat.sr.buysmart.Fragments.UsersFragment;
 import unasat.sr.buysmart.R;
@@ -49,7 +50,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         Bundle extras = getIntent().getExtras();
          user = extras.getString("username");
         if (user!= null) {
-            System.out.println(user);
             username.setText(user);
         }
         setSupportActionBar(toolbar);
@@ -79,7 +79,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             loadFragment(dashboardFragment);
             return true;
         }
-
         if (id == R.id.nav_users){
             Bundle bundle = new Bundle();
             bundle.putString("username", user);
@@ -89,17 +88,23 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             return true;
         }
         else if (id == R.id.nav_products) {
-
             Bundle bundle12 = new Bundle();
             ProductsFragment productsFragment = new ProductsFragment();
             productsFragment.setArguments(bundle12);
             loadFragment(new ProductsFragment());
             return true;
         }
+        else if (id == R.id.nav_orders) {
+            Bundle bundle = new Bundle();
+            bundle.putString("username", user);
+            OrdersFragment ordersFragment = new OrdersFragment();
+            ordersFragment.setArguments(bundle);
+            loadFragment(ordersFragment);
+            return true;
+        }
         else if  (id == R.id.nav_logout) {
             Intent serviceIntent = new Intent(this, LoggedInService.class);
             stopService(serviceIntent);
-
             AppState.getSingleInstance().setLoggingOut(true);
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

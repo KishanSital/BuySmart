@@ -27,7 +27,6 @@ public class DashboardFragment extends Fragment {
     private TextView phonenumber1;
     private TextView phonenumber2;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,11 +57,7 @@ public class DashboardFragment extends Fragment {
             lastname.setText( user.getLastname());
             phonenumber1.setText(  user.toStringPhone1());
             phonenumber2.setText(user.toStringPhone2());
-
         }
-
         return v;
     }
-
-
 }

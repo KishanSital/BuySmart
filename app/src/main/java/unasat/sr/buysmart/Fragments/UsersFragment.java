@@ -49,7 +49,6 @@ public class UsersFragment extends Fragment {
             if (userList.size() > 0) {
                 UsersAdapterClassUser usersAdapterClass = new UsersAdapterClassUser(userList, v.getContext());
                 recyclerView.setAdapter(usersAdapterClass);
-
             }
         }else {
                 GlobalDAO globalDAO = new GlobalDAO(v.getContext());
@@ -65,10 +64,6 @@ public class UsersFragment extends Fragment {
                     myDialogFragment.show(getFragmentManager(),"Fragment");
                 }
             }
-
-
-
-
         return v;
     }
 }

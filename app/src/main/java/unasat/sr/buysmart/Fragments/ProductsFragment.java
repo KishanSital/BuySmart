@@ -40,7 +40,6 @@ public class ProductsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_USERNAME);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
             System.out.println(mParam1);
         }
     }
@@ -60,7 +59,6 @@ public class ProductsFragment extends Fragment {
         return pView;
     }
 
-    // Sample data for RecyclerView
     private List<Product> getData(Context context) {
         GlobalDAO globalDAO = new GlobalDAO(context);
         List<Product> list = new ArrayList<>();

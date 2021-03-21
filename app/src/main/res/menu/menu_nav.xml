@@ -20,6 +20,11 @@
                 <!--android:checked="true"-->
 
                 <item
+                    android:id="@+id/nav_orders"
+                    android:icon="@drawable/ic_baseline_shopping_basket_24"
+                    android:title="@string/nav_orders" />
+
+                <item
                     android:id="@+id/nav_users"
                     android:icon="@drawable/ic__supervised_user"
                     android:title="@string/nav_manage_cred" />

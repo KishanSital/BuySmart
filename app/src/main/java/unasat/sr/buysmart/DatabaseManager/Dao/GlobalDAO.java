@@ -387,6 +387,19 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return productList;
     }
 
+    public List<Order> findAllOrdersByUsername(String username) {
+        User user = findByUsername(username);
+        List<Order> orders = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format("select * from %s where %s = %s", ORDER_TABLE, CUSTOMER_ID, user.getUserId());
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            orders.add(new Order(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3)));
+        }
+        db.close();
+        return orders;
+    }
+
     public List<User> findAllUserRecords(String table) {
         List<User> users = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
