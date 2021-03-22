@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import android.view.View;
 
 import android.widget.EditText;
+import android.widget.Toast;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.Entities.User;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setIcon(R.drawable.ic_check);
                 builder.setTitle(getString(R.string.login_success));
                 builder.setMessage( getString(R.string.welcome_message_owner));
-                builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
                         dialog.cancel();
@@ -90,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
 
                         emptyInputEditText();
                         finish();
+                    }
+                }).setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                      //  Toast.makeText(getApplicationContext(),"",Toast.LENGTH_LONG).show();
                     }
                 });
                 AlertDialog alertDialog = builder.create();
