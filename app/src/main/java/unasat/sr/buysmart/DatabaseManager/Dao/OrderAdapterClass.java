@@ -26,10 +26,13 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
 
     Context context;
     List<Order> orderList;
+    private  GlobalDAO databaseHelperClass;
 
     public OrderAdapterClass(Context context, List<Order> orderList) {
         this.context = context;
         this.orderList = orderList;
+        databaseHelperClass = new GlobalDAO(context);
+
     }
 
     @NonNull
@@ -43,9 +46,11 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         if(orderList != null) {
+
+           Product product =  databaseHelperClass.findProductById((orderList.get(position).getProductId()) + "");
             holder.textViewNumberOrder.setText(String.valueOf(position + 1));
-            holder.productOTextView.setText(String.valueOf(orderList.get(position).getId()));
-            holder.priceOTextView.setText(String.valueOf(orderList.get(position).getProductId()));
+            holder.productOTextView.setText(String.valueOf(/*orderList.get(position).getId()*/ "Product name : "+product.getName()));
+            holder.priceOTextView.setText(String.valueOf(/*orderList.get(position).getProductId()*/"Product price : SRD "+ product.getPrice()));
             holder.dateTextView.setText(orderList.get(position).getOrderedDate());
         } else {
             holder.productOTextView.setText("Order something");

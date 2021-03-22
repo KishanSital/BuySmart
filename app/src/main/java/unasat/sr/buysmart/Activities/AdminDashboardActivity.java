@@ -18,6 +18,10 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
+import unasat.sr.buysmart.Entities.User;
+import unasat.sr.buysmart.Fragments.DashboardFragment;
+import unasat.sr.buysmart.Fragments.OrdersFragment;
 import unasat.sr.buysmart.Fragments.UsersFragment;
 import unasat.sr.buysmart.R;
 import unasat.sr.buysmart.Services.LoggedInService;
@@ -29,6 +33,9 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView username;
+    private GlobalDAO globalDAO;
+    private String user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +51,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
         View header = navigationView.getHeaderView(0);
         username = header.findViewById(R.id.username_textView);
         Bundle extras = getIntent().getExtras();
-        String user = extras.getString("username");
+         user = extras.getString("username");
         if (user!= null) {
             System.out.println(user);
             username.setText(user);
@@ -55,8 +62,17 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open_drawer, R.string.nav_close_drawer);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        Bundle bundle = new Bundle();
+        bundle.putString("username", user);
+        OrdersFragment ordersFragment = new OrdersFragment();
+        ordersFragment.setArguments(bundle);
+      //  loadFragment(ordersFragment);
+
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
-         loadFragment(new UsersFragment());
+        globalDAO = new GlobalDAO(getApplicationContext());
+
+        loadFragment(new UsersFragment());
 
     }
 
@@ -69,6 +85,18 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
             loadFragment(new UsersFragment());
             return true;
         } else if (id == R.id.nav_report) {
+                User userEntity = globalDAO.findByUsername(user);
+            System.out.println(userEntity.getUsername());
+
+                Bundle bundle = new Bundle();
+                bundle.putString("username", userEntity.getUsername());
+                bundle.putInt("userId", userEntity.getUserId());
+                OrdersFragment ordersFragment = new OrdersFragment();
+                ordersFragment.setArguments(bundle);
+                loadFragment(ordersFragment);
+                return true;
+
+
           //  loadFragment(new ReportFragment());
         } /*else if (id == R.id.nav_home){
 

@@ -17,16 +17,14 @@ import java.util.List;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.DatabaseManager.Dao.ProductAdapter;
+import unasat.sr.buysmart.DatabaseManager.Dao.UsersAdapterClassUser;
 import unasat.sr.buysmart.Entities.Product;
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
 public class ProductsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_USERNAME = "username";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private TextView productTextViewDetailTextView, priceTextViewDetailTextView;
@@ -38,9 +36,20 @@ public class ProductsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle!= null) {
+             mParam1 = bundle.getString("username");
+            System.out.println(mParam1);
+        } else {
+            System.out.println("Bundle is null");
+        }
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_USERNAME);
             System.out.println(mParam1);
+        } else {
+            System.out.println("getArguments is null");
         }
     }
 
@@ -61,7 +70,7 @@ public class ProductsFragment extends Fragment {
 
     private List<Product> getData(Context context) {
         GlobalDAO globalDAO = new GlobalDAO(context);
-        List<Product> list = new ArrayList<>();
+        List<Product> list;
         list = globalDAO.getAllProduct();
         return list;
     }

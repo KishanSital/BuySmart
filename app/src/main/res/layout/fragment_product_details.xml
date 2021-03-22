@@ -20,29 +20,57 @@
     <TextView
         android:id="@+id/productTextViewDetailTextView"
         android:layout_width="152dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="76dp"
-        android:text="TextView"
+        android:layout_height="47dp"
+        android:layout_marginTop="68dp"
+        android:gravity="center_horizontal"
         android:textAlignment="center"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.733"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
-        android:gravity="center_horizontal" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/priceTextViewDetailTextView"
         android:layout_width="148dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="64dp"
-        android:text="TextView"
+        android:layout_height="47dp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
         android:textAlignment="center"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.722"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productTextViewDetailTextView"
-        android:gravity="center_horizontal" />
+        app:layout_constraintTop_toBottomOf="@+id/productTextViewDetailTextView" />
+
+    <TextView
+        android:id="@+id/ProductLabel"
+        android:layout_width="127dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="68dp"
+        android:text="@string/product_name"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/productTextViewDetailTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <TextView
+        android:id="@+id/PriceLabel"
+        android:layout_width="127dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="281dp"
+        android:text="@string/price_srd"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/priceTextViewDetailTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ProductLabel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

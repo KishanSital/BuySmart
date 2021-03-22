@@ -38,7 +38,18 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                addOrder(view, getIntent().getStringExtra(ProductDetailsFragment.ARG_USERNAME), prodId, getApplicationContext());
+                Bundle extras = getIntent().getExtras();
+                String user = extras.getString(ProductDetailsFragment.ARG_USERNAME);
+                String user2 = extras.getString(ProductDetailsFragment.ARG_USERNAME2);
+                if (user!= null) {
+                    System.out.println(user);
+                   // username.setText(user);
+
+                } else if (user2 !=null){
+                    System.out.println(user2);
+                }
+
+                addOrder(view, user2, prodId, getApplicationContext());
             }
         });
 
@@ -74,11 +85,12 @@ public class ProductListActivity extends AppCompatActivity {
             Order order = new Order();
             order.setCustomerId(user.getUserId());
             order.setProductId(prodId);
+            order.setCustomerName(username);
             Date date = new Date();
             order.setOrderedDate(String.valueOf(date));
             globalDAO.addOrder(order);
             System.out.println("Added order for " + username);
-            Snackbar.make(view, prodId + " ordered", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, /*prodId +*/ " Order placed successfully we'll contact you within an hour", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         } else {
             System.out.println("Failed to add ordered.");

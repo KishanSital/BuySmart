@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Fragments.DashboardFragment;
 import unasat.sr.buysmart.Fragments.OrdersFragment;
 import unasat.sr.buysmart.Fragments.ProductsFragment;
@@ -33,6 +35,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private Toolbar toolbar;
     private TextView username;
     private String user;
+    private GlobalDAO globalDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         DashboardFragment dashboardFragment = new DashboardFragment();
         dashboardFragment.setArguments(bundle);
         loadFragment(dashboardFragment);
+
+        globalDAO = new GlobalDAO(getApplicationContext());
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
     }
 
@@ -89,14 +94,17 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         }
         else if (id == R.id.nav_products) {
             Bundle bundle12 = new Bundle();
+            bundle12.putString("username", user);
             ProductsFragment productsFragment = new ProductsFragment();
             productsFragment.setArguments(bundle12);
             loadFragment(new ProductsFragment());
             return true;
         }
         else if (id == R.id.nav_orders) {
+            User userEntity = globalDAO.findByUsername(user);
             Bundle bundle = new Bundle();
-            bundle.putString("username", user);
+            bundle.putString("username", userEntity.getUsername());
+            bundle.putInt("userId", userEntity.getUserId());
             OrdersFragment ordersFragment = new OrdersFragment();
             ordersFragment.setArguments(bundle);
             loadFragment(ordersFragment);

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import unasat.sr.buysmart.Entities.Order;
@@ -19,8 +20,8 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "buysmart2.db";
-    private static final int DATABASE_VERSION = 3;
+    private static final String DATABASE_NAME = "buysmart4.db";
+    private static final int DATABASE_VERSION = 4;
     // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
@@ -50,6 +51,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String ORDER_TABLE = "orders";
     public static final String ORDER_ID = "order_id";
     public static final String CUSTOMER_ID = "customer_id";
+    public static final String CUSTOMER_NAME = "customer_name";
     public static final String ORDERED_DATE = "ordered_date";
 
 
@@ -72,7 +74,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
             " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL, %s INTEGER, %s INTEGER)",PRODUCT_TABLE, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPES_ID);
     // order table create string
     private static final String SQL_ORDER_QUERY = String.format("create table %s" +
-            " (%s INTEGER PRIMARY KEY, %s INTEGER NOT NULL, %s INTEGER, %s STRING)",ORDER_TABLE, ORDER_ID, PRODUCT_ID, CUSTOMER_ID, ORDERED_DATE);
+            " (%s INTEGER PRIMARY KEY, %s INTEGER NOT NULL, %s INTEGER, %s STRING, %s STRING)",ORDER_TABLE, ORDER_ID, PRODUCT_ID, CUSTOMER_ID, ORDERED_DATE, CUSTOMER_NAME);
 
     public GlobalDAO(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -98,6 +100,16 @@ public class GlobalDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(USER_TABLE, USER_USERNAME + " = ? ", new String[]
                 {String.valueOf(username)});
+
+    }
+
+    public void deleteOrder (String username){
+        SQLiteDatabase db = this.getWritableDatabase();
+        List <Order> ordersList;
+        ordersList = findAllOrdersByUsername(username);
+        if(ordersList.size() > 0){
+            db.delete(ORDER_TABLE, CUSTOMER_NAME + " = '?'", new String[] {String.valueOf(username)});
+        }
     }
 
     public void updateUsers(User userClass){
@@ -208,34 +220,15 @@ public class GlobalDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(CUSTOMER_ID, order.getCustomerId());
+        values.put(CUSTOMER_NAME, order.getCustomerName());
         values.put(ORDERED_DATE, order.getOrderedDate());
         values.put(PRODUCT_ID, order.getProductId());
-
         // Inserting Singular Row
         db.insert(ORDER_TABLE, null, values);
         db.close();
     }
 
-    public User findByUsername(String username) {
-        User user = new User();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = null;
-        String whereClause = String.format("%s = ?", USER_USERNAME);
-        String[] whereArgs = {username};
-        cursor = db.query(USER_TABLE, null, whereClause, whereArgs ,null, null, null);
-        if(cursor.getCount() > 0){
-            cursor.moveToFirst();
-            user.setEmail(cursor.getString(cursor.getColumnIndex(USER_EMAIL)));
-            user.setUsername(cursor.getString(cursor.getColumnIndex(USER_USERNAME)));
-            user.setPassword(cursor.getString(cursor.getColumnIndex(USER_PASSWORD)));
-            user.setFirstname(cursor.getString(cursor.getColumnIndex(USER_FIRSTNAME)));
-            user.setLastname(cursor.getString(cursor.getColumnIndex(USER_LASTNAME)));
-            user.setPhoneNumber1(cursor.getInt(cursor.getColumnIndex(USER_PHONE_NUMBER1)));
-            user.setPhoneNumber2(cursor.getInt(cursor.getColumnIndex(USER_PHONE_NUMBER2)));
-            user.setNationality(cursor.getString(cursor.getColumnIndex(USER_NATIONALITY)));
-        }
-        return user;
-    }
+
 
     public UserType findByUserType(String userType) {
         UserType type = new UserType();
@@ -271,7 +264,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
         String whereClause = String.format("%s = ?", PRODUCT_ID);
-        String[] whereArgs = {productId};
+        String[] whereArgs = {productId.trim()};
         cursor = db.query(PRODUCT_TABLE, null, whereClause, whereArgs ,null, null, null);
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
@@ -387,18 +380,59 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return productList;
     }
 
+    public User findByUsername(String username) {
+        User user = new User();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        String whereClause = String.format("%s = ?", USER_USERNAME);
+        String[] whereArgs = {username};
+        cursor = db.query(USER_TABLE, null, whereClause, whereArgs ,null, null, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            user.setUserId(cursor.getInt(cursor.getColumnIndex(USER_ID)));
+            user.setEmail(cursor.getString(cursor.getColumnIndex(USER_EMAIL)));
+            user.setUsername(cursor.getString(cursor.getColumnIndex(USER_USERNAME)));
+            user.setPassword(cursor.getString(cursor.getColumnIndex(USER_PASSWORD)));
+            user.setFirstname(cursor.getString(cursor.getColumnIndex(USER_FIRSTNAME)));
+            user.setLastname(cursor.getString(cursor.getColumnIndex(USER_LASTNAME)));
+            user.setPhoneNumber1(cursor.getInt(cursor.getColumnIndex(USER_PHONE_NUMBER1)));
+            user.setPhoneNumber2(cursor.getInt(cursor.getColumnIndex(USER_PHONE_NUMBER2)));
+            user.setNationality(cursor.getString(cursor.getColumnIndex(USER_NATIONALITY)));
+        }
+        return user;
+    }
+
+
     public List<Order> findAllOrdersByUsername(String username) {
-        User user = findByUsername(username);
+
+
+      //  User user = findByUsername(username);
         List<Order> orders = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        String sql = String.format("select * from %s where %s = %s", ORDER_TABLE, CUSTOMER_ID, user.getUserId());
+        String sql = String.format("select * from %s where %s ='%s'", ORDER_TABLE, CUSTOMER_NAME, username);
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
-            orders.add(new Order(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3)));
+            orders.add(new Order(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)));
         }
         db.close();
         return orders;
     }
+
+
+    public List<Order> findAllOrders() {
+        List<Order> orders = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format("select * from %s ", ORDER_TABLE, CUSTOMER_NAME);
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            orders.add(new Order(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)));
+        }
+        db.close();
+        return orders;
+    }
+
+
+
 
     public List<User> findAllUserRecords(String table) {
         List<User> users = new ArrayList<>();

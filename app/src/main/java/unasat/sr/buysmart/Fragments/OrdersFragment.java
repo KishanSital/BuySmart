@@ -16,25 +16,21 @@ import java.util.List;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.DatabaseManager.Dao.OrderAdapterClass;
-import unasat.sr.buysmart.DatabaseManager.Dao.ProductAdapter;
+
 import unasat.sr.buysmart.Entities.Order;
-import unasat.sr.buysmart.Entities.Product;
+
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrdersFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class OrdersFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_USERNAME = "username";
+    private static final String ARG_USER_ID = "userId";
 
-    // TODO: Rename and change types of parameters
     private String mUsername;
-
+    private int mId;
     RecyclerView recyclerViewOrder;
 
 
@@ -45,31 +41,56 @@ public class OrdersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mUsername = getArguments().getString(ARG_USERNAME);
-            System.out.println("Order list " + mUsername);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            mUsername = bundle.getString(ARG_USERNAME);
+            mId = bundle.getInt(ARG_USER_ID);
+            System.out.println("Order list Id="+ mId+ " username= " + mUsername);
+        } else{
+            System.out.println("OrdersFragment, no list id and username found");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View pView = inflater.inflate(R.layout.fragment_orders, container, false);;
         recyclerViewOrder = pView.findViewById(R.id.recyclerViewOrder);
+        recyclerViewOrder.setLayoutManager(new LinearLayoutManager(pView.getContext()));
+        recyclerViewOrder.setHasFixedSize(true);
 
         List<Order> orderList = getData(pView.getContext(), mUsername);
 
-        OrderAdapterClass orderAdapterClass = new OrderAdapterClass(pView.getContext(), orderList);
-        recyclerViewOrder.setAdapter(orderAdapterClass);
-        recyclerViewOrder.setLayoutManager(new LinearLayoutManager(pView.getContext()));
+        if (orderList.size() > 0) {
+
+            OrderAdapterClass orderAdapterClass = new OrderAdapterClass(pView.getContext(), orderList);
+            recyclerViewOrder.setAdapter(orderAdapterClass);
+        } else {
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("error",getString(R.string.error_orders_list));
+            MyDialogFragment myDialogFragment = new MyDialogFragment();
+            myDialogFragment.setArguments(bundle1);
+            myDialogFragment.show(getFragmentManager(),"Fragment");
+        }
+
+             recyclerViewOrder.setLayoutManager(new LinearLayoutManager(pView.getContext()));
+
         return pView;
     }
 
     private List<Order> getData(Context context, String username) {
         GlobalDAO globalDAO = new GlobalDAO(context);
         List<Order> list;
-        list = globalDAO.findAllOrdersByUsername(username);
+        User user = globalDAO.findByUsername(username);
+        if (globalDAO.checkIfUserAdmin(user.getUsername(), user.getPassword())){
+            list = globalDAO.findAllOrders();
+        }else {
+            list = globalDAO.findAllOrdersByUsername(username);
+        }
         return list;
     }
 }

@@ -27,6 +27,7 @@ public class ProductDetailsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_PROD_ID = "productId";
     public static final String ARG_USERNAME = "username";
+    public static final String ARG_USERNAME2 = "username2";
 
     // TODO: Rename and change types of parameters
     private int mProd_id;

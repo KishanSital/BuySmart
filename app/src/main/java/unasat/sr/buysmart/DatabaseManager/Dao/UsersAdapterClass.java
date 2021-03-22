@@ -88,6 +88,7 @@ public class UsersAdapterClass extends RecyclerView.Adapter<UsersAdapterClass.Vi
                     return;
                 }
                 else {
+                   // databaseHelperClass.deleteOrder(usersclass.getUsername());
                     databaseHelperClass.deleteUser(usersclass.getUsername());
                     users.remove(position);
                     notifyDataSetChanged();

@@ -121,6 +121,23 @@ public class SplashScreenActivity extends AppCompatActivity {
                     System.out.println(user.toString());
                 }
 
+
+                if (!globalDAO.checkUser("Kishan")) {
+                    user = new User();
+                    user.setFirstname("Kishan");
+                    user.setLastname("Sital");
+                    user.setEmail("Kishansital1@gmail.com");
+                    user.setUsername("Kishan");
+                    user.setPhoneNumber1(12345);
+                    user.setPhoneNumber2(123456);
+                    user.setNationality("Suriname");
+                    user.setPassword("1234");
+                    user.setUserTypeId(2); // 2 = customer, will be filled in automatically when registering. 1 = Admin (one admin will automatically be inserted on startup)
+                    globalDAO.addUser(user);
+                    System.out.println(user.toString());
+                }
+
+
                 if (!globalDAO.checkUserType("Admin")){
                     userType = new UserType();
                     userType.setUserTypeId(1);
@@ -167,11 +184,11 @@ public class SplashScreenActivity extends AppCompatActivity {
         private void insertProduct() {
             ProductType productType = globalDAO.findProductTypeByName("Phones");
 
-            Product product1 = new Product("Product1", 100, productType.getProductTypeId());
-            Product product2 = new Product("Product2", 100, productType.getProductTypeId());
-            Product product3 = new Product("Product3", 100, productType.getProductTypeId());
-            Product product4 = new Product("Product4", 100, productType.getProductTypeId());
-            Product product5 = new Product("Product5", 100, productType.getProductTypeId());
+            Product product1 = new Product("Iphone 12", 20000, productType.getProductTypeId());
+            Product product2 = new Product("Samsung A30", 4000, productType.getProductTypeId());
+            Product product3 = new Product("CAT", 6000, productType.getProductTypeId());
+            Product product4 = new Product("Nokia Lumia", 900, productType.getProductTypeId());
+          /*  Product product5 = new Product("Product5", 100, productType.getProductTypeId());
             Product product6 = new Product("Product6", 100, productType.getProductTypeId());
             Product product7 = new Product("Product7", 100, productType.getProductTypeId());
             Product product8 = new Product("Product8", 100, productType.getProductTypeId());
@@ -185,13 +202,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             Product product16 = new Product("Product16", 100, productType.getProductTypeId());
             Product product17 = new Product("Product17", 100, productType.getProductTypeId());
             Product product18 = new Product("Product18", 100, productType.getProductTypeId());
-            Product product19 = new Product("Product19", 100, productType.getProductTypeId());
+            Product product19 = new Product("Product19", 100, productType.getProductTypeId());*/
             List<Product> products = new ArrayList<>();
             products.add(product1);
             products.add(product2);
             products.add(product3);
             products.add(product4);
-            products.add(product5);
+         /*   products.add(product5);
             products.add(product6);
             products.add(product7);
             products.add(product8);
@@ -205,7 +222,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             products.add(product16);
             products.add(product17);
             products.add(product18);
-            products.add(product19);
+            products.add(product19);*/
 
             for(int i = 0; i <  products.size();i++) {
                 if(!globalDAO.checkProduct(products.get(i).getName())) {

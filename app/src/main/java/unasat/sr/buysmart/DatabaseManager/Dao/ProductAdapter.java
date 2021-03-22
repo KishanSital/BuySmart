@@ -22,6 +22,7 @@ import java.util.List;
 
 import unasat.sr.buysmart.Activities.ProductListActivity;
 import unasat.sr.buysmart.Entities.Product;
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Fragments.ProductDetailsFragment;
 import unasat.sr.buysmart.R;
 
@@ -29,6 +30,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     Context context;
     List<Product> productList;
+    String usernameString;
 
     public ProductAdapter(Context context, List<Product> productList) {
         this.context = context;
@@ -45,10 +47,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        System.out.println(productList.get(position).getName());
+        System.out.println("Product name : "+productList.get(position).getName());
         System.out.println(productList.get(position).getPrice());
         holder.productTextView.setText(productList.get(position).getName());
-        holder.priceTextView.setText("Price: " + String.valueOf(productList.get(position).getPrice()));
+        holder.priceTextView.setText("Price: SRD " + String.valueOf(productList.get(position).getPrice()));
 
 
         holder.productItemLayout.setOnClickListener(new View.OnClickListener() {
@@ -59,11 +61,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 String user = extras.getString("username");
                 if (user!= null) {
                     System.out.println(user);
+                } else {
+                    System.out.println("username is null");
                 }
+
+                Bundle bundle = activity.getIntent().getExtras();
+                if (bundle!= null) {
+                     usernameString = bundle.getString("username");
+                    System.out.println(usernameString);
+                    GlobalDAO globalDAO = new GlobalDAO(v.getContext());
+                    User userClass = globalDAO.findByUsername(usernameString);
+                } else {
+                    System.out.println("Bundle username is null");
+                }
+
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ProductListActivity.class);
                 intent.putExtra(ProductDetailsFragment.ARG_PROD_ID, productList.get(position).getId());
                 intent.putExtra(ProductDetailsFragment.ARG_USERNAME, user);
+                intent.putExtra(ProductDetailsFragment.ARG_USERNAME2, usernameString);
                 System.out.println("Master" + productList.get(position).getId());
                 context.startActivity(intent);
             }

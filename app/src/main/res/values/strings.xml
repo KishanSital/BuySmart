@@ -67,9 +67,12 @@
     <string name="please_wait">Please wait</string>
     <string name="a_moment">We\'re setting up our shop...</string>
     <string name="nav_users">Manage users</string>
-    <string name="nav_report">Report</string>
+    <string name="nav_report">Orders report</string>
     <string name="error_message_users">There are no users \n \n in the database</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="nav_manage_cred">Credentials</string>
+    <string name="error_orders_list">There are no orders</string>
+    <string name="product_name">Product name :</string>
+    <string name="price_srd">Price : SRD</string>
 </resources>
