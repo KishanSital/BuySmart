@@ -75,4 +75,7 @@
     <string name="error_orders_list">There are no orders</string>
     <string name="product_name">Product name :</string>
     <string name="price_srd">Price : SRD</string>
+    <string name="nav_manage_products">Manage products</string>
+    <string name="error_insert_product">Vul alle velden in</string>
+    <string name="error_phone_number">Please provide a  \n \n valid phone number</string>
 </resources>

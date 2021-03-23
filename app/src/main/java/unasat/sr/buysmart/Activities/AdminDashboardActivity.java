@@ -35,6 +35,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
     private TextView username;
     private GlobalDAO globalDAO;
     private String user;
+    private int nav_Id;
 
 
     @Override
@@ -52,11 +53,13 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
         username = header.findViewById(R.id.username_textView);
         Bundle extras = getIntent().getExtras();
          user = extras.getString("username");
+         nav_Id = 0;
+         nav_Id = extras.getInt("nav_id");
         if (user!= null) {
             System.out.println(user);
             username.setText(user);
-
         }
+
         setSupportActionBar(toolbar);
         navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open_drawer, R.string.nav_close_drawer);
@@ -71,8 +74,31 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
 
         navigationView.setNavigationItemSelectedListener(this::onNavigationItemSelected);
         globalDAO = new GlobalDAO(getApplicationContext());
+        loadFragment();
 
-        loadFragment(new UsersFragment());
+    }
+
+    private void loadFragment (){
+        if (R.id.nav_users == nav_Id){
+            System.out.println("Found users fragment");
+            loadFragment(new UsersFragment());
+            return;
+        } else if (R.id.nav_report == nav_Id){
+            System.out.println("found reports fragment");
+            User userEntity = globalDAO.findByUsername(user);
+            System.out.println(userEntity.getUsername());
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("username", userEntity.getUsername());
+            bundle1.putInt("userId", userEntity.getUserId());
+            OrdersFragment ordersFragment1 = new OrdersFragment();
+            ordersFragment1.setArguments(bundle1);
+            loadFragment(ordersFragment1);
+            return;
+        } else {
+            System.out.println("Nothing found");
+            loadFragment(new UsersFragment());
+
+        }
 
     }
 
@@ -118,6 +144,12 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
             finish();
 
 
+        }
+
+        else if (id == R.id.nav_manage_products){
+            Intent manageProductsIntent = new Intent(AdminDashboardActivity.this, AddProductsActivity.class);
+            manageProductsIntent.putExtra("username",user);
+            startActivity(manageProductsIntent);
         }
 
         return super.onOptionsItemSelected(item);

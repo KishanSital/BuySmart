@@ -24,12 +24,11 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="339dp"
+            android:layout_width="402dp"
             android:layout_height="208dp"
-            android:gravity="center"
-            android:textSize="20sp"
             android:background="#0099CC"
-            ></TextView>
+            android:gravity="center"
+            android:textSize="20sp"></TextView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

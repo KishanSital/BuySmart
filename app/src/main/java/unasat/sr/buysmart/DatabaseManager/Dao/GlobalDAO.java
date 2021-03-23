@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import unasat.sr.buysmart.Entities.Order;
 import unasat.sr.buysmart.Entities.Product;
+import unasat.sr.buysmart.Entities.Product2;
 import unasat.sr.buysmart.Entities.ProductType;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Entities.UserType;
@@ -20,8 +22,8 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "buysmart4.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "buysmart5.db";
+    private static final int DATABASE_VERSION = 5;
     // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
@@ -53,9 +55,20 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String CUSTOMER_ID = "customer_id";
     public static final String CUSTOMER_NAME = "customer_name";
     public static final String ORDERED_DATE = "ordered_date";
-
+    // constant product2 table
+    public static final String PRODUCT2_TABLE = "product2";
+    public static final String PRODUCT2_ID = "product_id2";
+    public static final String PRODUCT2_NAME = "name2";
+    public static final String PRODUCT2_PRICE = "price2";
+    public static final String PRODUCT2_TYPES_ID = "product_types_id2";
+    public static final String PRODUCT2_IMAGE = "product_image";
 
     public static final int ADMIN = 1;
+
+    //product2 table create string
+
+    private static final String SQL_PRODUCT2_QUERY = String.format("create table %s" +
+            " (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s STRING NOT NULL, %s INTEGER, %s INTEGER, %s BLOB)",PRODUCT2_TABLE, PRODUCT2_ID, PRODUCT2_NAME, PRODUCT2_PRICE, PRODUCT2_TYPES_ID, PRODUCT2_IMAGE);
 
     // user table create string
     private static final String SQL_USER_TABLE_QUERY = String.format("create table %s " +
@@ -152,6 +165,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.execSQL(SQL_PRODUCT_TYPES_QUERY);
         db.execSQL(SQL_PRODUCT_QUERY);
         db.execSQL(SQL_ORDER_QUERY);
+        db.execSQL(SQL_PRODUCT2_QUERY);
     }
 
     @Override
@@ -161,6 +175,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.execSQL(SQL_PRODUCT_TYPES_QUERY);
         db.execSQL(SQL_PRODUCT_QUERY);
         db.execSQL(SQL_ORDER_QUERY);
+        db.execSQL(SQL_PRODUCT2_QUERY);
+
     }
 
     /**
@@ -214,6 +230,66 @@ public class GlobalDAO extends SQLiteOpenHelper {
         // Inserting Singular Row
         db.insert(PRODUCT_TABLE, null, values);
         db.close();
+    }
+
+    public void insertProduct2(String name, int price, byte[] image, int productTypeId){
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = " INSERT INTO "+ PRODUCT2_TABLE +" VALUES (NULL, ?, ?, ?, ?) ";
+
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+
+        //int id, String name, int price, int productTypeId, byte[] image
+
+        statement.bindString(1, name);
+        statement.bindLong(2, price);
+        statement.bindLong(3, productTypeId);
+        statement.bindBlob(4, image);
+        statement.executeInsert();
+    }
+    public void insertProduct2(Product2 product2) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        // values.put(USER_ID, user.getId());
+        values.put(PRODUCT2_NAME, product2.getName());
+        values.put(PRODUCT2_PRICE, product2.getPrice());
+        values.put(PRODUCT2_IMAGE, product2.getImage());
+        values.put(PRODUCT2_TYPES_ID, product2.getProductTypeId());
+        // Inserting Singular Row
+        db.insert(PRODUCT2_TABLE, null, values);
+        db.close();
+    }
+
+
+    public void updateProduct2(String name, int price, byte[] image, int id, int productTypeId) {
+        SQLiteDatabase database = getWritableDatabase();
+
+        String sql = "UPDATE "+ PRODUCT2_TABLE +" SET "+PRODUCT2_NAME+" = ?, "+PRODUCT2_PRICE+" = ?, "+PRODUCT2_IMAGE+" = ?, "+PRODUCT2_TYPES_ID+" = ? WHERE "+PRODUCT2_ID+" = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+
+        statement.bindString(1, name);
+        statement.bindLong(2, price);
+        statement.bindBlob(3, image);
+        statement.bindLong(4, productTypeId);
+        statement.bindLong(5, id);
+        statement.execute();
+        database.close();
+    }
+
+    public  void deleteProduct2(int id) {
+        SQLiteDatabase database = getWritableDatabase();
+        String sql = "DELETE FROM "+ PRODUCT2_TABLE +" WHERE "+PRODUCT2_ID+" = ?";
+        SQLiteStatement statement = database.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindLong(1,id);
+        statement.execute();
+        database.close();
+    }
+
+
+    public Cursor getProduct2(String sql){
+        SQLiteDatabase database = getReadableDatabase();
+        return database.rawQuery(sql, null);
     }
 
     public void addOrder(Order order) {

@@ -176,10 +176,23 @@ public class RegistrationActivity extends AppCompatActivity implements AdapterVi
             user.setLastname(lastname.getText().toString().trim());
             user.setEmail(email.getText().toString().trim());
             user.setUsername(username.getText().toString().trim());
-            user.setPhoneNumber1(Integer.parseInt(phoneNumber1.getText().toString().trim()));
-            if (phoneNumber2.getText().toString() != null ||phoneNumber2.getText().toString() != "") {
-                user.setPhoneNumber2(Integer.parseInt( phoneNumber2.getText().toString().trim()));
+            try {
+
+                user.setPhoneNumber1(Integer.parseInt(phoneNumber1.getText().toString().trim()));
+                if (phoneNumber2.getText().toString() != null ||phoneNumber2.getText().toString() != "") {
+                    user.setPhoneNumber2(Integer.parseInt( phoneNumber2.getText().toString().trim()));
+                }
+            }catch (Exception e){
+                Bundle bundle = new Bundle();
+                bundle.putString("error",getString(R.string.error_phone_number));
+                MyDialogFragment myDialogFragment = new MyDialogFragment();
+                myDialogFragment.setArguments(bundle);
+                myDialogFragment.show(getSupportFragmentManager(),"MyFragment");
+                e.printStackTrace();
+                return;
             }
+
+
             user.setNationality(nationality.getText().toString());
             user.setPassword(password.getText().toString());
             user.setUserTypeId(2); // 2 = customer, will be filled in automatically when registering. 1 = Admin (one admin will automatically be inserted on startup)

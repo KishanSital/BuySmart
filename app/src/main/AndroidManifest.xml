@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="unasat.sr.buysmart">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:name=".Activities.App"
@@ -13,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BuySmart">
-        <activity android:name=".Activities.ProductListActivity"></activity>
+        <activity android:name=".Activities.Product2ListActivity"></activity>
+        <activity android:name=".Activities.AddProductsActivity" />
+        <activity android:name=".Activities.ProductListActivity" />
         <activity android:name=".Activities.AdminDashboardActivity" />
         <activity android:name=".Activities.RegistrationActivity" />
         <activity android:name=".Activities.DashboardActivity" />
@@ -34,4 +35,11 @@
         <service android:name=".Services.LoggedInService" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Internet permission -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 </manifest>
