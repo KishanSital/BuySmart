@@ -78,4 +78,8 @@
     <string name="nav_manage_products">Manage products</string>
     <string name="error_insert_product">Vul alle velden in</string>
     <string name="error_phone_number">Please provide a  \n \n valid phone number</string>
+    <string name="error_image">Please choose an image</string>
+    <string name="error_numeric">Vul een nummerieke waarde \n \n in voor price</string>
+    <string name="error_name_product">Vul een naam in \n \n voor het product</string>
+    <string name="error_products">There are no products \n  \n available</string>
 </resources>

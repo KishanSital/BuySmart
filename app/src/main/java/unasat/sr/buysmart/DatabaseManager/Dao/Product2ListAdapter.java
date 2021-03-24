@@ -69,10 +69,10 @@ public class Product2ListAdapter extends BaseAdapter {
         }
 
         Product2 product2 = product2List.get(position);
-        holder.txtName.setText(product2.getName());
-        holder.txtPrice.setText(product2.InttoString(product2.getPrice()));
-        byte[] foodImage = product2.getImage();
-        Bitmap bitmap = BitmapFactory.decodeByteArray(foodImage, 0, foodImage.length);
+        holder.txtName.setText("Product naam: "+product2.getName());
+        holder.txtPrice.setText("Product prijs  : SRD"+product2.InttoString(product2.getPrice())+",-");
+        byte[] image = product2.getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
         holder.imageView.setImageBitmap(bitmap);
 
         return row;

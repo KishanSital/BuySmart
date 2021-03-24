@@ -162,7 +162,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                     System.out.println(productType.toString());
                 }
 
-                insertProduct();
+              //  insertProduct();
                 return true;
 
             }catch (SQLiteException e){
@@ -181,14 +181,14 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }
 
-        private void insertProduct() {
+   /*     private void insertProduct() {
             ProductType productType = globalDAO.findProductTypeByName("Phones");
 
-            Product product1 = new Product("Iphone 12", 20000, productType.getProductTypeId());
+            Product product1 = new Product("Iphone 12 Pro Max", 20000, productType.getProductTypeId());
             Product product2 = new Product("Samsung A30", 4000, productType.getProductTypeId());
-            Product product3 = new Product("CAT", 6000, productType.getProductTypeId());
-            Product product4 = new Product("Nokia Lumia", 900, productType.getProductTypeId());
-          /*  Product product5 = new Product("Product5", 100, productType.getProductTypeId());
+            Product product3 = new Product("CAT S41", 6000, productType.getProductTypeId());
+            Product product4 = new Product("Nokia Lumia 1520", 900, productType.getProductTypeId());
+          *//*  Product product5 = new Product("Product5", 100, productType.getProductTypeId());
             Product product6 = new Product("Product6", 100, productType.getProductTypeId());
             Product product7 = new Product("Product7", 100, productType.getProductTypeId());
             Product product8 = new Product("Product8", 100, productType.getProductTypeId());
@@ -202,13 +202,13 @@ public class SplashScreenActivity extends AppCompatActivity {
             Product product16 = new Product("Product16", 100, productType.getProductTypeId());
             Product product17 = new Product("Product17", 100, productType.getProductTypeId());
             Product product18 = new Product("Product18", 100, productType.getProductTypeId());
-            Product product19 = new Product("Product19", 100, productType.getProductTypeId());*/
+            Product product19 = new Product("Product19", 100, productType.getProductTypeId());*//*
             List<Product> products = new ArrayList<>();
             products.add(product1);
             products.add(product2);
             products.add(product3);
             products.add(product4);
-         /*   products.add(product5);
+         *//*   products.add(product5);
             products.add(product6);
             products.add(product7);
             products.add(product8);
@@ -222,14 +222,14 @@ public class SplashScreenActivity extends AppCompatActivity {
             products.add(product16);
             products.add(product17);
             products.add(product18);
-            products.add(product19);*/
+            products.add(product19);*//*
 
             for(int i = 0; i <  products.size();i++) {
                 if(!globalDAO.checkProduct(products.get(i).getName())) {
                     globalDAO.addProduct(products.get(i));
                 }
             }
-        }
+        }*/
     }
 
 }

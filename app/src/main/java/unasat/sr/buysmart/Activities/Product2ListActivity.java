@@ -30,8 +30,10 @@ import java.util.ArrayList;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.DatabaseManager.Dao.Product2ListAdapter;
+import unasat.sr.buysmart.DatabaseManager.Dao.ProductAdapter;
 import unasat.sr.buysmart.Entities.Product2;
 import unasat.sr.buysmart.Entities.ProductType;
+import unasat.sr.buysmart.Fragments.MyDialogFragment;
 import unasat.sr.buysmart.R;
 
 public class Product2ListActivity extends AppCompatActivity {
@@ -68,7 +70,26 @@ public class Product2ListActivity extends AppCompatActivity {
 
             list.add(new Product2(id,name, price,productTypeId, image ));
         }
-        adapter.notifyDataSetChanged();
+        if (list.size() > 0){
+            adapter.notifyDataSetChanged();
+        }else {
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("error",getString(R.string.error_products));
+            MyDialogFragment myDialogFragment = new MyDialogFragment();
+            myDialogFragment.setArguments(bundle1);
+            myDialogFragment.show(getSupportFragmentManager(),"Fragment");
+       /*     new java.util.Timer().schedule(
+                    new java.util.TimerTask(){
+                        @Override
+                        public void run() {
+                            onBackPressed();
+                        }
+                    }, 5000
+            );*/
+
+            return;
+        }
+        //adapter.notifyDataSetChanged();
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

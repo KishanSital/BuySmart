@@ -1,12 +1,16 @@
 package unasat.sr.buysmart.DatabaseManager.Dao;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,10 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import unasat.sr.buysmart.Activities.ProductListActivity;
 import unasat.sr.buysmart.Entities.Product;
+import unasat.sr.buysmart.Entities.Product2;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Fragments.ProductDetailsFragment;
 import unasat.sr.buysmart.R;
@@ -29,12 +35,13 @@ import unasat.sr.buysmart.R;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     Context context;
-    List<Product> productList;
+   // List<Product> productList;
+   private final ArrayList<Product2> product2List;
     String usernameString;
 
-    public ProductAdapter(Context context, List<Product> productList) {
+    public ProductAdapter(Context context, ArrayList<Product2> product2List) {
         this.context = context;
-        this.productList = productList;
+        this.product2List = product2List;
     }
 
     @NonNull
@@ -47,11 +54,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        System.out.println("Product name : "+productList.get(position).getName());
-        System.out.println(productList.get(position).getPrice());
-        holder.productTextView.setText(productList.get(position).getName());
-        holder.priceTextView.setText("Price: SRD " + String.valueOf(productList.get(position).getPrice()));
-
+        System.out.println("Product name : "+product2List.get(position).getName());
+        System.out.println(product2List.get(position).getPrice());
+        Product2 product2 = product2List.get(position);
+        byte[] Image = product2.getImage();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(Image, 0, Image.length);
+        holder.imageView.setImageBitmap(bitmap);
+        holder.productTextView.setText(product2List.get(position).getName());
+        holder.priceTextView.setText("Price: SRD " + product2List.get(position).InttoString(product2.getPrice()) +",-");
 
         holder.productItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +74,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 } else {
                     System.out.println("username is null");
                 }
-
                 Bundle bundle = activity.getIntent().getExtras();
                 if (bundle!= null) {
                      usernameString = bundle.getString("username");
@@ -77,10 +86,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
                 Context context = v.getContext();
                 Intent intent = new Intent(context, ProductListActivity.class);
-                intent.putExtra(ProductDetailsFragment.ARG_PROD_ID, productList.get(position).getId());
+                intent.putExtra(ProductDetailsFragment.ARG_PROD_ID, product2List.get(position).getId());
                 intent.putExtra(ProductDetailsFragment.ARG_USERNAME, user);
                 intent.putExtra(ProductDetailsFragment.ARG_USERNAME2, usernameString);
-                System.out.println("Master" + productList.get(position).getId());
+                System.out.println("Master" + product2List.get(position).getId());
                 context.startActivity(intent);
             }
         });
@@ -88,17 +97,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return product2List.size();
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
 
         TextView productTextView, priceTextView;
+        ImageView imageView;
         Button orderBtn;
         ConstraintLayout productItemLayout;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
+            imageView = itemView.findViewById(R.id.imageView);
             productTextView = itemView.findViewById(R.id.productTextView);
             priceTextView = itemView.findViewById(R.id.priceTextView);
             productItemLayout = itemView.findViewById(R.id.productItemLayout);

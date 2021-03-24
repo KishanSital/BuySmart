@@ -29,9 +29,14 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.PrintStream;
+import java.util.Arrays;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.Entities.Product2;
@@ -46,14 +51,19 @@ import unasat.sr.buysmart.Services.LoggedInService;
 public class AddProductsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private static byte[] byteArray;
+    private static Bitmap bitmap;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolbar;
     private TextView username;
     private GlobalDAO globalDAO;
     private String user;
+    private Bitmap bitmapimg;
 
     private EditText edtName, edtPrice;
+    private String edTnaam;
+    private int edTprice;
     private Button btnChoose, btnAdd, btnList;
     private ImageView imageView;
     private Product2 product2;
@@ -82,35 +92,46 @@ public class AddProductsActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
                 ProductType productType = globalDAO.findProductTypeByName("Phones");
+               edTnaam = edtName.getText().toString().trim();
+               if (StringUtils.isBlank(edTnaam)){
+                   Bundle bundle = new Bundle();
+                   bundle.putString("error",getString(R.string.error_name_product));
+                   MyDialogFragment myDialogFragment = new MyDialogFragment();
+                   myDialogFragment.setArguments(bundle);
+                   myDialogFragment.show(getSupportFragmentManager(),"MyFragment");
+                   return;
+               }
+               try {
+                   edTprice = Integer.parseInt(edtPrice.getText().toString());
+               }catch (Exception e){
+                   Bundle bundle = new Bundle();
+                   bundle.putString("error",getString(R.string.error_numeric));
+                   MyDialogFragment myDialogFragment = new MyDialogFragment();
+                   myDialogFragment.setArguments(bundle);
+                   myDialogFragment.show(getSupportFragmentManager(),"MyFragment");
+                   e.printStackTrace();
+                   return;
+               }
 
                 try{
 
-                    if (edtName.getText() != null && edtPrice.getText() != null && (imageViewToByte(imageView) != null )){
                         product2.setName(edtName.getText().toString().trim());
                         product2.setPrice( Integer.parseInt(edtPrice.getText().toString().trim()));
                         product2.setImage(imageViewToByte(imageView));
                         product2.setProductTypeId(productType.getProductTypeId());
 
                         globalDAO.insertProduct2(product2);
-                        System.out.println(product2.toString());
+                    System.out.printf(Arrays.toString(product2.getImage()));
 
                         Toast.makeText(getApplicationContext(), "Added successfully!", Toast.LENGTH_SHORT).show();
-                        edtName.setText("");
-                        edtPrice.setText("");
+                        edtName.setText(null);
+                        edtPrice.setText(null);
                         imageView.setImageResource(R.mipmap.ic_launcher);
-                    } else
-                    {
-                        Bundle bundle = new Bundle();
-                        bundle.putString("error",getString(R.string.error_insert_product));
-                        MyDialogFragment myDialogFragment = new MyDialogFragment();
-                        myDialogFragment.setArguments(bundle);
-                        myDialogFragment.show(getSupportFragmentManager(),"MyFragment");
-                    }
 
                 }
                 catch (Exception e){
                     Bundle bundle = new Bundle();
-                    bundle.putString("error", e.getMessage().toString());
+                    bundle.putString("error", getString(R.string.error_image));
                     MyDialogFragment myDialogFragment = new MyDialogFragment();
                     myDialogFragment.setArguments(bundle);
                     myDialogFragment.show(getSupportFragmentManager(),"MyFragment");
@@ -128,13 +149,15 @@ public class AddProductsActivity extends AppCompatActivity implements Navigation
         });
     }
 
-    private void init() {
+    private void init()  {
         setContentView(R.layout.activity_add_products);
 
         globalDAO = new GlobalDAO(this);
         product2 = new Product2();
-
-
+        edTnaam = null;
+        edTprice = 0;
+        byteArray = null;
+        bitmapimg = null;
 
         edtName = (EditText) findViewById(R.id.edtName);
         edtPrice = (EditText) findViewById(R.id.edtPrice);
@@ -175,10 +198,10 @@ public class AddProductsActivity extends AppCompatActivity implements Navigation
     }
 
     public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
+            bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byteArray = stream.toByteArray();
         return byteArray;
     }
 

@@ -22,8 +22,8 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "buysmart5.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final String DATABASE_NAME = "buysmart7.db";
+    private static final int DATABASE_VERSION = 7;
     // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
@@ -44,11 +44,12 @@ public class GlobalDAO extends SQLiteOpenHelper {
     public static final String PRODUCT_TYPES_TABLE = "product_types";
     public static final String PRODUCT_TYPES_ID = "product_types_id";
     public static final String PRODUCT_TYPES_NAME = "name";
-    // constants product table
+  /*  // constants product table
     public static final String PRODUCT_TABLE = "product";
-    public static final String PRODUCT_ID = "product_id";
     public static final String PRODUCT_NAME = "name";
-    public static final String PRODUCT_PRICE = "price";
+    public static final String PRODUCT_PRICE = "price";*/
+  public static final String PRODUCT_ID = "product_id";
+
     // constant orders table
     public static final String ORDER_TABLE = "orders";
     public static final String ORDER_ID = "order_id";
@@ -83,8 +84,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
     private static final String SQL_PRODUCT_TYPES_QUERY = String.format("create table %s" +
             " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL)",PRODUCT_TYPES_TABLE, PRODUCT_TYPES_ID, PRODUCT_TYPES_NAME);
     // product table create string
-    private static final String SQL_PRODUCT_QUERY = String.format("create table %s" +
-            " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL, %s INTEGER, %s INTEGER)",PRODUCT_TABLE, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPES_ID);
+//    private static final String SQL_PRODUCT_QUERY = String.format("create table %s" +
+//            " (%s INTEGER PRIMARY KEY, %s STRING NOT NULL, %s INTEGER, %s INTEGER)",PRODUCT_TABLE, PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_TYPES_ID);
     // order table create string
     private static final String SQL_ORDER_QUERY = String.format("create table %s" +
             " (%s INTEGER PRIMARY KEY, %s INTEGER NOT NULL, %s INTEGER, %s STRING, %s STRING)",ORDER_TABLE, ORDER_ID, PRODUCT_ID, CUSTOMER_ID, ORDERED_DATE, CUSTOMER_NAME);
@@ -163,7 +164,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.execSQL(SQL_USER_TABLE_QUERY);
         db.execSQL(SQL_USER_TYPE_QUERY);
         db.execSQL(SQL_PRODUCT_TYPES_QUERY);
-        db.execSQL(SQL_PRODUCT_QUERY);
+        //db.execSQL(SQL_PRODUCT_QUERY);
         db.execSQL(SQL_ORDER_QUERY);
         db.execSQL(SQL_PRODUCT2_QUERY);
     }
@@ -173,7 +174,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.execSQL(SQL_USER_TABLE_QUERY);
         db.execSQL(SQL_USER_TYPE_QUERY);
         db.execSQL(SQL_PRODUCT_TYPES_QUERY);
-        db.execSQL(SQL_PRODUCT_QUERY);
+        //db.execSQL(SQL_PRODUCT_QUERY);
         db.execSQL(SQL_ORDER_QUERY);
         db.execSQL(SQL_PRODUCT2_QUERY);
 
@@ -221,7 +222,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addProduct(Product product) {
+/*    public void addProduct(Product product) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(PRODUCT_NAME, product.getName());
@@ -230,7 +231,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         // Inserting Singular Row
         db.insert(PRODUCT_TABLE, null, values);
         db.close();
-    }
+    }*/
 
     public void insertProduct2(String name, int price, byte[] image, int productTypeId){
         SQLiteDatabase database = getWritableDatabase();
@@ -335,7 +336,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return productType;
     }
 
-    public Product findProductById(String productId) {
+/*    public Product findProductById(String productId) {
         Product product= new Product();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = null;
@@ -350,7 +351,27 @@ public class GlobalDAO extends SQLiteOpenHelper {
             product.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT_ID))));
         }
         return product;
+    }*/
+
+    public Product2 findProduct2ById(String productId) {
+        Product2 product= new Product2();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = null;
+        String whereClause = String.format("%s = ?", PRODUCT2_ID);
+        String[] whereArgs = {productId.trim()};
+        cursor = db.query(PRODUCT2_TABLE, null, whereClause, whereArgs ,null, null, null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            product.setProductTypeId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT2_TYPES_ID))));
+            product.setName(cursor.getString(cursor.getColumnIndex(PRODUCT2_NAME)));
+            product.setPrice(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT2_PRICE))));
+            product.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(PRODUCT2_ID))));
+            product.setImage(cursor.getBlob(cursor.getColumnIndex(PRODUCT2_IMAGE)));
+        }
+        return product;
     }
+
+
 
     /**
      * This method is to fetch all user and return the list of user records
@@ -412,7 +433,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return userList;
     }
 
-    public List<Product> getAllProduct() {
+  /*  public List<Product> getAllProduct() {
         // array of columns to fetch
         String[] columns = {
                 PRODUCT_ID,
@@ -426,11 +447,11 @@ public class GlobalDAO extends SQLiteOpenHelper {
         List<Product>  productList= new ArrayList<Product>();
         SQLiteDatabase db = this.getReadableDatabase();
         // query the user table
-        /**
+        *//**
          * Here query function is used to fetch records from user table this function works like we use sql query.
          * SQL query equivalent to this query function is
          * SELECT ID,USER_USERNAME,... FROM USER_TABLE ORDER BY USER_USERNAME;
-         */
+         *//*
         Cursor cursor = db.query(PRODUCT_TABLE, //Table to query
                 columns,    //columns to return
                 null,        //columns for the WHERE clause
@@ -454,7 +475,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         db.close();
         // return user list
         return productList;
-    }
+    }*/
 
     public User findByUsername(String username) {
         User user = new User();
@@ -702,7 +723,7 @@ public class GlobalDAO extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean checkProduct(String productName) {
+    /*public boolean checkProduct(String productName) {
         // array of columns to fetch
         String[] columns = {
                 PRODUCT_ID
@@ -727,5 +748,5 @@ public class GlobalDAO extends SQLiteOpenHelper {
             return true;
         }
         return false;
-    }
+    }*/
 }
