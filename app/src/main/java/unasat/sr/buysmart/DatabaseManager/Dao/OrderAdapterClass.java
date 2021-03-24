@@ -50,7 +50,6 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         if(orderList != null) {
-
            Product2 product =  databaseHelperClass.findProduct2ById((orderList.get(position).getProductId()) + "");
             byte[] image = product.getImage();
             Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);

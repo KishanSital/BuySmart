@@ -27,10 +27,12 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
 import unasat.sr.buysmart.DatabaseManager.Dao.Product2ListAdapter;
 import unasat.sr.buysmart.DatabaseManager.Dao.ProductAdapter;
+import unasat.sr.buysmart.Entities.Order;
 import unasat.sr.buysmart.Entities.Product2;
 import unasat.sr.buysmart.Entities.ProductType;
 import unasat.sr.buysmart.Fragments.MyDialogFragment;
@@ -191,11 +193,17 @@ public class Product2ListActivity extends AppCompatActivity {
         dialogDelete.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                try {
-                    globalDAO.deleteProduct2(idFood);
-                    Toast.makeText(getApplicationContext(), "Deleted successfully!!!",Toast.LENGTH_SHORT).show();
-                } catch (Exception e){
-                    Log.e("error", e.getMessage());
+                List<Order> list = globalDAO.findAllOrdersByProductId(idFood);
+                if (list.size() > 0){
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_orders_placed),Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    try {
+                        globalDAO.deleteProduct2(idFood);
+                        Toast.makeText(getApplicationContext(), "Deleted successfully!!!",Toast.LENGTH_SHORT).show();
+                    } catch (Exception e){
+                        Log.e("error", e.getMessage());
+                    }
                 }
                 updateProductsList();
             }

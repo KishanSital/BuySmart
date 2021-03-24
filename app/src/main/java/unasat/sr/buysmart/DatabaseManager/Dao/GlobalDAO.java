@@ -22,8 +22,8 @@ import unasat.sr.buysmart.Entities.UserType;
 
 public class GlobalDAO extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "buysmart7.db";
-    private static final int DATABASE_VERSION = 7;
+    private static final String DATABASE_NAME = "buysmart8.db";
+    private static final int DATABASE_VERSION = 8;
     // constants user table
     public static final String USER_TABLE = "user";
     public static final String USER_ID = "user_id";
@@ -114,7 +114,8 @@ public class GlobalDAO extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(USER_TABLE, USER_USERNAME + " = ? ", new String[]
                 {String.valueOf(username)});
-
+        db.delete(ORDER_TABLE, CUSTOMER_NAME + " = ?", new String[]
+                {String.valueOf(username)});
     }
 
     public void deleteOrder (String username){
@@ -284,6 +285,13 @@ public class GlobalDAO extends SQLiteOpenHelper {
         statement.clearBindings();
         statement.bindLong(1,id);
         statement.execute();
+
+        String sql2 = "DELETE FROM "+ ORDER_TABLE +" WHERE " +PRODUCT_ID+" = ?";
+        SQLiteStatement statement2 = database.compileStatement(sql2);
+        statement.clearBindings();
+        statement.bindLong(1,id);
+        statement2.execute();
+
         database.close();
     }
 
@@ -507,6 +515,20 @@ public class GlobalDAO extends SQLiteOpenHelper {
         List<Order> orders = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         String sql = String.format("select * from %s where %s ='%s'", ORDER_TABLE, CUSTOMER_NAME, username);
+        Cursor cursor = db.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            orders.add(new Order(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)));
+        }
+        db.close();
+        return orders;
+    }
+
+
+    public List<Order> findAllOrdersByProductId(int prodId) {
+        //  User user = findByUsername(username);
+        List<Order> orders = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String sql = String.format("select * from %s where %s ='%s'", ORDER_TABLE, PRODUCT_ID, prodId);
         Cursor cursor = db.rawQuery(sql, null);
         while (cursor.moveToNext()) {
             orders.add(new Order(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getString(3), cursor.getString(4)));

@@ -1,6 +1,8 @@
 package unasat.sr.buysmart.Fragments;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 import unasat.sr.buysmart.DatabaseManager.Dao.GlobalDAO;
@@ -18,6 +22,7 @@ import unasat.sr.buysmart.DatabaseManager.Dao.OrderAdapterClass;
 
 import unasat.sr.buysmart.Entities.Order;
 
+import unasat.sr.buysmart.Entities.Product2;
 import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.R;
 
@@ -64,22 +69,20 @@ public class OrdersFragment extends Fragment {
 
         List<Order> orderList = getData(pView.getContext(), mUsername);
 
-        if (orderList.size() > 0) {
-
-            OrderAdapterClass orderAdapterClass = new OrderAdapterClass(pView.getContext(), orderList);
-            recyclerViewOrder.setAdapter(orderAdapterClass);
-        } else {
-            Bundle bundle1 = new Bundle();
-            bundle1.putString("error",getString(R.string.error_orders_list));
-            MyDialogFragment myDialogFragment = new MyDialogFragment();
-            myDialogFragment.setArguments(bundle1);
-            myDialogFragment.show(getFragmentManager(),"Fragment");
-        }
-
-             recyclerViewOrder.setLayoutManager(new LinearLayoutManager(pView.getContext()));
-
-        return pView;
+            if (orderList.size() > 0 && orderList != null && !orderList.isEmpty()) {
+                OrderAdapterClass orderAdapterClass = new OrderAdapterClass(pView.getContext(), orderList);
+                recyclerViewOrder.setAdapter(orderAdapterClass);
+            } else {
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("error",getString(R.string.error_orders_list));
+                MyDialogFragment myDialogFragment = new MyDialogFragment();
+                myDialogFragment.setArguments(bundle1);
+                myDialogFragment.show(getFragmentManager(),"Fragment");
+            }
+          recyclerViewOrder.setLayoutManager(new LinearLayoutManager(pView.getContext()));
+          return pView;
     }
+
 
     private List<Order> getData(Context context, String username) {
         GlobalDAO globalDAO = new GlobalDAO(context);
