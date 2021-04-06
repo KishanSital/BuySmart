@@ -118,13 +118,16 @@ public class GlobalDAO extends SQLiteOpenHelper {
                 {String.valueOf(username)});
     }
 
-    public void deleteOrder (String username){
+
+
+    public void deleteOrder (int orderId ){
         SQLiteDatabase db = this.getWritableDatabase();
-        List <Order> ordersList;
-        ordersList = findAllOrdersByUsername(username);
-        if(ordersList.size() > 0){
-            db.delete(ORDER_TABLE, CUSTOMER_NAME + " = '?'", new String[] {String.valueOf(username)});
-        }
+        String sql = "DELETE FROM "+ ORDER_TABLE +" WHERE " +ORDER_ID+" = ?";
+        SQLiteStatement statement = db.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindLong(1,orderId);
+        statement.execute();
+        db.close();
     }
 
     public void updateUsers(User userClass){

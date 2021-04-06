@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import unasat.sr.buysmart.Activities.ProductListActivity;
 import unasat.sr.buysmart.Entities.Order;
 import unasat.sr.buysmart.Entities.Product;
 import unasat.sr.buysmart.Entities.Product2;
+import unasat.sr.buysmart.Entities.User;
 import unasat.sr.buysmart.Fragments.ProductDetailsFragment;
 import unasat.sr.buysmart.R;
 
@@ -49,6 +51,7 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
 
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
+        //final Order orderClass = orderList.get(position);
         if(orderList != null) {
            Product2 product =  databaseHelperClass.findProduct2ById((orderList.get(position).getProductId()) + "");
             byte[] image = product.getImage();
@@ -57,9 +60,21 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
             holder.productOTextView.setText(String.valueOf(/*orderList.get(position).getId()*/ "Product name : "+product.getName()));
             holder.priceOTextView.setText(String.valueOf(/*orderList.get(position).getProductId()*/"Product price : SRD "+ product.getPrice()));
             holder.dateTextView.setText(orderList.get(position).getOrderedDate());
+            holder.userTextView.setText("Order placed by : "+orderList.get(position).getCustomerName());
         } else {
             holder.productOTextView.setText("Order something");
         }
+
+        holder.button_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                databaseHelperClass.deleteOrder(orderList.get(position).getId());
+                orderList.remove(position);
+                notifyDataSetChanged();
+
+
+            }
+        });
     }
 
     @Override
@@ -68,9 +83,10 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
     }
 
     public class OrderViewHolder extends RecyclerView.ViewHolder{
-        TextView productOTextView, priceOTextView, dateTextView;
+        TextView productOTextView, priceOTextView, dateTextView, userTextView;
         ImageView imageView;
         ConstraintLayout orderItemLayout;
+        Button button_delete;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -79,6 +95,9 @@ public class OrderAdapterClass extends RecyclerView.Adapter<OrderAdapterClass.Or
             dateTextView = itemView.findViewById(R.id.dateTextView);
             imageView = itemView.findViewById(R.id.imageView);
             orderItemLayout = itemView.findViewById(R.id.orderItemLayout);
+            button_delete = itemView.findViewById(R.id.btnDeleteOrder);
+            userTextView = itemView.findViewById(R.id.UserOrderTextView);
+
         }
     }
 }
