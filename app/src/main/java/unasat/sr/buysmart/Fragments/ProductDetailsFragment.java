@@ -29,13 +29,9 @@ import unasat.sr.buysmart.R;
 
 public class ProductDetailsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_PROD_ID = "productId";
     public static final String ARG_USERNAME = "username";
     public static final String ARG_USERNAME2 = "username2";
-
-    // TODO: Rename and change types of parameters
     private int mProd_id;
     private TextView productTextViewDetailTextView, priceTextViewDetailTextView;
     private ImageView imageView;
@@ -70,7 +66,7 @@ public class ProductDetailsFragment extends Fragment {
         Bitmap bitmap = BitmapFactory.decodeByteArray(image, 0, image.length);
         imageView.setImageBitmap(bitmap);
         productTextViewDetailTextView.setText("Product naam: "+product.getName());
-        priceTextViewDetailTextView.setText("Product prijs: "+String.valueOf(product.InttoString(product.getPrice())));
+        priceTextViewDetailTextView.setText("Product prijs: SRD"+String.valueOf(product.InttoString(product.getPrice()))+",-");
         return v;
     }
 

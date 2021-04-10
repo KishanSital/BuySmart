@@ -121,18 +121,7 @@ public class AdminDashboardActivity extends AppCompatActivity implements Navigat
                 ordersFragment.setArguments(bundle);
                 loadFragment(ordersFragment);
                 return true;
-
-
-          //  loadFragment(new ReportFragment());
-        } /*else if (id == R.id.nav_home){
-
-            Bundle bundle1 = new Bundle();
-            bundle1.putString("username",username.getText().toString().trim());
-            DashboardFragment dashboardFragment = new DashboardFragment();
-            dashboardFragment.setArguments(bundle1);
-
-            loadFragment(new DashboardFragment());
-        }*/
+        }
 
         else if  (id == R.id.nav_logout) {
             Intent serviceIntent = new Intent(this, LoggedInService.class);

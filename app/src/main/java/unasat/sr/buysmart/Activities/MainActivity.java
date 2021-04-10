@@ -76,8 +76,6 @@ public class MainActivity extends AppCompatActivity {
                         // startService(serviceIntent);
 
 
-                        //issue hiermee, probeer op de dashboard fragment gebruiker gegevens te tonen,maar lukt niet
-                        // bij de menu komt hij wel tevoorschijn, maar bij de fragment doet hij gek
                     Bundle bundle1 = new Bundle();
                     bundle1.putString("username",etUsername.getText().toString().trim());
                     bundle1.putString("username_id",etUsername.getText().toString().trim());
@@ -118,14 +116,6 @@ public class MainActivity extends AppCompatActivity {
                         serviceIntent.putExtra("inputExtra", input);
                         ContextCompat.startForegroundService(getApplicationContext(), serviceIntent);
                        // startService(serviceIntent);
-
-
-                        //issue hiermee, probeer op de dashboard fragment gebruiker gegevens te tonen,maar lukt niet
-                        // bij de menu komt hij wel tevoorschijn, maar bij de fragment doet hij gek
-                  /*  Bundle bundle1 = new Bundle();
-                    bundle1.putString("username",etUsername.getText().toString().trim());
-                    DashboardFragment dashboardFragment = new DashboardFragment();
-                    dashboardFragment.setArguments(bundle1);*/
 
 
                         Intent dashboardIntent = new Intent(MainActivity.this, DashboardActivity.class);
